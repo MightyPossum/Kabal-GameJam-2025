@@ -1,9 +1,40 @@
-[gd_scene load_steps=2 format=3 uid="uid://debg83k4fjtb5"]
+[gd_scene load_steps=4 format=3 uid="uid://debg83k4fjtb5"]
 
 [ext_resource type="Texture2D" uid="uid://jppnifqkqvlb" path="res://icon.svg" id="1_jaycq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jaycq"]
+size = Vector2(102, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tbcuu"]
+size = Vector2(25.5, 81)
 
 [node name="Mech" type="Node2D"]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.63, 0.63)
 texture = ExtResource("1_jaycq")
+
+[node name="WallNorth" type="Area2D" parent="."]
+position = Vector2(-9, -53)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallNorth"]
+position = Vector2(10, 3)
+shape = SubResource("RectangleShape2D_jaycq")
+
+[node name="WallSouth" type="Area2D" parent="."]
+position = Vector2(0, 52)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallSouth"]
+shape = SubResource("RectangleShape2D_jaycq")
+
+[node name="WallEast" type="Area2D" parent="."]
+position = Vector2(53, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallEast"]
+shape = SubResource("RectangleShape2D_tbcuu")
+
+[node name="WallWest" type="Area2D" parent="."]
+position = Vector2(-53, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallWest"]
+shape = SubResource("RectangleShape2D_tbcuu")

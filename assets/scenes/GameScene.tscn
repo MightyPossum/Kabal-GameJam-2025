@@ -1,8 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://1uhb1t2k28jg"]
+[gd_scene load_steps=3 format=3 uid="uid://1uhb1t2k28jg"]
 
 [ext_resource type="PackedScene" uid="uid://debg83k4fjtb5" path="res://assets/scenes/mech.tscn" id="1_0tohw"]
+[ext_resource type="Script" uid="uid://btsc7aeuebkgq" path="res://assets/scenes/GameScene.gd" id="1_8oxkv"]
 
 [node name="Node2D" type="Node2D"]
+script = ExtResource("1_8oxkv")
 
 [node name="Mech" parent="." instance=ExtResource("1_0tohw")]
 position = Vector2(138, 223)
