@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://1uhb1t2k28jg"]
+
+[ext_resource type="PackedScene" uid="uid://debg83k4fjtb5" path="res://assets/scenes/mech.tscn" id="1_0tohw"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Mech" parent="." instance=ExtResource("1_0tohw")]
+position = Vector2(138, 223)
