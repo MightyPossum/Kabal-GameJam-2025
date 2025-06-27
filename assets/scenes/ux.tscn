@@ -1,0 +1,237 @@
+[gd_scene load_steps=11 format=3 uid="uid://4w8ro62cr66"]
+
+[ext_resource type="Texture2D" uid="uid://2t7xdba3i8an" path="res://assets/art/ux/spr_upgrade_background.png" id="1_jthcv"]
+[ext_resource type="Texture2D" uid="uid://dmf71xs1vifsd" path="res://assets/art/ux/spr_upgrade_button.png" id="1_ml48v"]
+[ext_resource type="Texture2D" uid="uid://cqwykc2p3xfuh" path="res://assets/art/ux/spr_menu_background.png" id="1_p0xmd"]
+[ext_resource type="Texture2D" uid="uid://bge8il6s8f8qm" path="res://assets/art/ux/spr_upgrade_background_description.png" id="2_ieyc5"]
+[ext_resource type="Texture2D" uid="uid://dt80q0i06coey" path="res://assets/art/ux/spr_upgrade_button_border.png" id="4_jcggf"]
+[ext_resource type="Texture2D" uid="uid://belrajs1upru3" path="res://assets/art/ux/spr_menu_button.png" id="4_ml48v"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3umoj"]
+texture = ExtResource("1_ml48v")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_frtvw"]
+texture = ExtResource("1_jthcv")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7orci"]
+texture = ExtResource("4_jcggf")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jcggf"]
+texture = ExtResource("4_ml48v")
+
+[node name="Ux" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="upgrademenu" type="MarginContainer" parent="."]
+layout_mode = 2
+offset_right = 270.0
+offset_bottom = 480.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_top = 30
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="upgrademenu"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="close_menu" type="Button" parent="upgrademenu/VBoxContainer2"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_3umoj")
+text = "Return"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="upgrademenu"]
+custom_minimum_size = Vector2(90, 400)
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_constants/separation = 18
+
+[node name="background" type="NinePatchRect" parent="upgrademenu/VBoxContainer"]
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("1_jthcv")
+region_rect = Rect2(0.0701904, 0.127385, 24.7903, 25.0191)
+patch_margin_left = 3
+patch_margin_top = 3
+patch_margin_right = 3
+patch_margin_bottom = 3
+
+[node name="upgrade_description" type="NinePatchRect" parent="upgrademenu/VBoxContainer/background"]
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -130.0
+offset_top = 4.0
+offset_right = 129.0
+offset_bottom = 192.0
+grow_horizontal = 2
+size_flags_vertical = 3
+texture = ExtResource("2_ieyc5")
+region_rect = Rect2(0.0701904, 0.127385, 24.7903, 25.0191)
+patch_margin_left = 3
+patch_margin_top = 3
+patch_margin_right = 3
+patch_margin_bottom = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="upgrademenu/VBoxContainer/background/upgrade_description"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="Label" type="Label" parent="upgrademenu/VBoxContainer/background/upgrade_description/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+text = "Title - Level
+Cost
+
+Dynamically update with description of pressed upgrade"
+autowrap_mode = 3
+
+[node name="purchase" type="MarginContainer" parent="upgrademenu/VBoxContainer/background"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -26.0
+offset_bottom = 14.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_right = 6
+
+[node name="Button" type="Button" parent="upgrademenu/VBoxContainer/background/purchase"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_frtvw")
+text = "Purchase Upgrade"
+
+[node name="Control" type="Control" parent="upgrademenu/VBoxContainer/background"]
+layout_mode = 2
+anchors_preset = 0
+offset_top = 196.0
+offset_right = 50.0
+offset_bottom = 196.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="upgrademenu/VBoxContainer/background"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 6.0
+offset_top = 19.0
+offset_right = 56.0
+offset_bottom = 69.0
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="upgrademenu/VBoxContainer/background/VBoxContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+
+[node name="upgrade_icon" type="Button" parent="upgrademenu/VBoxContainer/background/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_7orci")
+
+[node name="Control" type="Control" parent="upgrademenu/VBoxContainer"]
+layout_mode = 2
+
+[node name="basemenu" type="MarginContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="basemenu"]
+custom_minimum_size = Vector2(90, 70)
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_constants/separation = 10
+
+[node name="NinePatchRect" type="NinePatchRect" parent="basemenu/VBoxContainer"]
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("1_p0xmd")
+region_rect = Rect2(0.0701904, 0.127385, 24.7903, 25.0191)
+patch_margin_left = 3
+patch_margin_top = 3
+patch_margin_right = 3
+patch_margin_bottom = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="basemenu/VBoxContainer/NinePatchRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="basemenu/VBoxContainer/NinePatchRect/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="upgrades" type="Button" parent="basemenu/VBoxContainer/NinePatchRect/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(80, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/hover = SubResource("StyleBoxTexture_jcggf")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_jcggf")
+theme_override_styles/normal = SubResource("StyleBoxTexture_jcggf")
+
+[node name="prestige" type="Button" parent="basemenu/VBoxContainer/NinePatchRect/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(80, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/hover = SubResource("StyleBoxTexture_jcggf")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_jcggf")
+theme_override_styles/normal = SubResource("StyleBoxTexture_jcggf")
+
+[node name="stats" type="Button" parent="basemenu/VBoxContainer/NinePatchRect/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(80, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/hover = SubResource("StyleBoxTexture_jcggf")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_jcggf")
+theme_override_styles/normal = SubResource("StyleBoxTexture_jcggf")
