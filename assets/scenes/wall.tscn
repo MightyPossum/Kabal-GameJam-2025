@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://4421g4nsitik"]
 
 [ext_resource type="Script" uid="uid://dv2osfh7krcw1" path="res://assets/scripts/wall.gd" id="1_fv7l2"]
-[ext_resource type="Texture2D" uid="uid://jppnifqkqvlb" path="res://icon.svg" id="2_nddmm"]
+[ext_resource type="Texture2D" uid="uid://d2vac4hxnhikt" path="res://assets/art/basewall.png" id="2_nddmm"]
 
 [sub_resource type="RectangleShape2D" id="1_shape"]
 size = Vector2(31, 130)
@@ -10,7 +10,6 @@ size = Vector2(31, 130)
 script = ExtResource("1_fv7l2")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.117188, 1.04601)
 texture = ExtResource("2_nddmm")
 
 [node name="Area2D" type="Area2D" parent="." groups=["wall"]]
