@@ -5,6 +5,7 @@ extends Node2D
 
 var target_position: Vector2
 var rotation_angle: float = 0.0
+var collided : bool = false
 
 func set_rotation_meta(vertical: bool, angle: float = 90.0, flipped: bool = false):
 	rotation_angle = 0.0
@@ -29,13 +30,23 @@ func apply_meta():
 
 func _ready() -> void:
 	apply_meta()
-	await get_tree().create_timer(10.0).timeout
-	queue_free()
+	#await get_tree().create_timer(10.0).timeout
+	#queue_free()
 
 func _process(delta: float) -> void:
 	if target_position == null:
 		return
-	if $Area2D and $Area2D.get_overlapping_areas().size() > 0:
+	if collided:
 		return
 	var dir = (target_position - position)
 	position += dir.normalized() * move_speed * delta
+
+func _on_area_2d_area_entered(area: Area2D) -> void:
+	if area.is_in_group("wall"):
+		collided = true
+	if area.is_in_group("mech"):
+		collided = true
+
+func _on_area_2d_area_exited(area: Area2D) -> void:
+	if area.is_in_group("wall"):
+		collided = false
