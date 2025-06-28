@@ -1,5 +1,6 @@
-[gd_scene load_steps=11 format=3 uid="uid://4w8ro62cr66"]
+[gd_scene load_steps=12 format=3 uid="uid://4w8ro62cr66"]
 
+[ext_resource type="Script" uid="uid://b4uqlf0ire15l" path="res://assets/scenes/ux.gd" id="1_jcggf"]
 [ext_resource type="Texture2D" uid="uid://2t7xdba3i8an" path="res://assets/art/ux/spr_upgrade_background.png" id="1_jthcv"]
 [ext_resource type="Texture2D" uid="uid://dmf71xs1vifsd" path="res://assets/art/ux/spr_upgrade_button.png" id="1_ml48v"]
 [ext_resource type="Texture2D" uid="uid://cqwykc2p3xfuh" path="res://assets/art/ux/spr_menu_background.png" id="1_p0xmd"]
@@ -38,8 +39,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_jcggf")
 
 [node name="upgrademenu" type="MarginContainer" parent="."]
+unique_name_in_owner = true
 layout_mode = 2
 offset_right = 270.0
 offset_bottom = 480.0
@@ -52,7 +55,8 @@ custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 size_flags_vertical = 0
 
-[node name="close_menu" type="Button" parent="upgrademenu/VBoxContainer2"]
+[node name="close_upgrade_menu" type="Button" parent="upgrademenu/VBoxContainer2"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxTexture_3umoj")
@@ -129,7 +133,8 @@ grow_vertical = 2
 theme_override_constants/margin_left = 6
 theme_override_constants/margin_right = 6
 
-[node name="Button" type="Button" parent="upgrademenu/VBoxContainer/background/purchase"]
+[node name="purchase_button" type="Button" parent="upgrademenu/VBoxContainer/background/purchase"]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxTexture_frtvw")
 text = "Purchase Upgrade"
@@ -168,7 +173,7 @@ theme_override_styles/normal = SubResource("StyleBoxTexture_7orci")
 layout_mode = 2
 
 [node name="basemenu" type="MarginContainer" parent="."]
-visible = false
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -210,6 +215,7 @@ layout_mode = 2
 theme_override_constants/separation = 10
 
 [node name="upgrades" type="Button" parent="basemenu/VBoxContainer/NinePatchRect/MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(80, 60)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -219,6 +225,7 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_jcggf")
 theme_override_styles/normal = SubResource("StyleBoxTexture_jcggf")
 
 [node name="prestige" type="Button" parent="basemenu/VBoxContainer/NinePatchRect/MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(80, 60)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -228,6 +235,7 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_jcggf")
 theme_override_styles/normal = SubResource("StyleBoxTexture_jcggf")
 
 [node name="stats" type="Button" parent="basemenu/VBoxContainer/NinePatchRect/MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(80, 60)
 layout_mode = 2
 size_flags_horizontal = 4

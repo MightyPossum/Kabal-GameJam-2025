@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://d2vac4hxnhikt" path="res://assets/art/basewall.png" id="2_nddmm"]
 
 [sub_resource type="RectangleShape2D" id="1_shape"]
-size = Vector2(31, 130)
+size = Vector2(34, 96)
 
 [node name="Wall" type="Node2D" groups=["wall"]]
 script = ExtResource("1_fv7l2")
@@ -15,7 +15,7 @@ texture = ExtResource("2_nddmm")
 [node name="Area2D" type="Area2D" parent="." groups=["wall"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(-12.5, 1)
+position = Vector2(-11, 0)
 shape = SubResource("1_shape")
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

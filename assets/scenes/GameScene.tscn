@@ -1,12 +1,17 @@
-[gd_scene load_steps=4 format=3 uid="uid://1uhb1t2k28jg"]
+[gd_scene load_steps=5 format=3 uid="uid://1uhb1t2k28jg"]
 
 [ext_resource type="PackedScene" uid="uid://debg83k4fjtb5" path="res://assets/scenes/mech.tscn" id="1_0tohw"]
 [ext_resource type="Script" uid="uid://btsc7aeuebkgq" path="res://assets/scripts/GameScene.gd" id="1_8oxkv"]
 [ext_resource type="PackedScene" uid="uid://ccli6u06lnj5y" path="res://assets/scenes/basic_projectile.tscn" id="2_8oxkv"]
+[ext_resource type="PackedScene" uid="uid://4w8ro62cr66" path="res://assets/scenes/ux.tscn" id="4_iacku"]
 
-[node name="Node2D" type="Node2D"]
+[node name="GameScene" type="Node2D"]
 script = ExtResource("1_8oxkv")
 
 [node name="Mech" parent="." instance=ExtResource("1_0tohw")]
 position = Vector2(138, 223)
 projectile_scene = ExtResource("2_8oxkv")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Ux" parent="CanvasLayer" instance=ExtResource("4_iacku")]

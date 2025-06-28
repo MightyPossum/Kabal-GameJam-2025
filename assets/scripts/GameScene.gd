@@ -9,7 +9,7 @@ const WALL_DISTANCE := 400
 var walls : Dictionary = {}
 var mech
 
-var wall_health_base : Big = Big.new(4)
+var wall_health_base : Big = Big.new(6)
 var wall_health : Big = wall_health_base
 var wave_number : int = 1
 
