@@ -9,6 +9,7 @@ var spawn_timer: Timer
 func _ready():
 	# Enable input processing for mouse clicks
 	set_process_input(true)
+	GLOBAL.MECH = self  # Set the global mech variable
 	
 	# If no projectile scene is assigned, try to load it
 	if not projectile_scene:
