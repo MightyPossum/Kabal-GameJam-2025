@@ -27,11 +27,7 @@ func _physics_process(delta):
 func _on_lifetime_expired():
 	queue_free()
 
-# Optional: Handle collision detection
-func _on_area_entered(area):
-	# Add collision logic here if needed
-	queue_free()
-
-func _on_body_entered(body):
-	# Add collision logic here if needed
-	queue_free()
+func _on_area_2d_area_entered(area:Area2D) -> void:
+	if area.is_in_group("wall"):
+		area.get_parent().got_hit()
+		queue_free() # Remove the projectile when it enters an area

@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://debg83k4fjtb5"]
 
-[ext_resource type="Script" uid="uid://hg8lhr6gyq2t" path="res://assets/scenes/mech.gd" id="1_tbcuu"]
+[ext_resource type="Script" uid="uid://hg8lhr6gyq2t" path="res://assets/scripts/mech.gd" id="1_tbcuu"]
 [ext_resource type="Texture2D" uid="uid://c5mocbq4p6oc5" path="res://assets/art/mechinaboxmech.png" id="2_tbcuu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jaycq"]

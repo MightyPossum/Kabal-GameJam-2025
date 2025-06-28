@@ -7,6 +7,8 @@ var target_position: Vector2
 var rotation_angle: float = 0.0
 var collided : bool = false
 
+var wall_group : WallGroup
+
 func set_rotation_meta(vertical: bool, angle: float = 90.0, flipped: bool = false):
 	rotation_angle = 0.0
 	if vertical:
@@ -50,3 +52,9 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 func _on_area_2d_area_exited(area: Area2D) -> void:
 	if area.is_in_group("wall"):
 		collided = false
+
+
+func got_hit() -> void:
+	# Handle the wall being hit by a projectile
+	print("Wall got hit!")
+	wall_group.got_hit(1) 
