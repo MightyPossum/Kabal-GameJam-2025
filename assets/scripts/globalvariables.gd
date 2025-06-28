@@ -71,8 +71,18 @@ enum VALUE_APPLICATION_TYPE {
 
 var GAME_SCENE : Node = null
 var MECH : Node2D = null
+
 var ENERGY : int = 0
 var STATS : Stats
+
+var TOTAL_CLICKS : Big = Big.new(0)
+var TOTAL_TPS : Big = Big.new(0)
+var TOTAL_LIFETIME_COINS_GATHERED : Big = Big.new(0)
+var MANUAL_SHOTS : Big = Big.new(0)
+var CURRENT_DAMAGE_CANNON : Big = Big.new(1)
+
+var WAVE_TIME : float = 10.0
+var WAVE_NUMBER : int = 1
 
 var ENERGY_PER_SECOND : Big = Big.new(0):
 	get:
@@ -130,12 +140,6 @@ var ATTACK_SPEED_DICTIONARY : Dictionary = {
 	VALUE_APPLICATION_TYPE.BASE: Big.new(1),
 }
 
-var TOTAL_CLICKS : Big = Big.new(0)
-var TOTAL_TPS : Big = Big.new(0)
-var TOTAL_LIFETIME_COINS_GATHERED : Big = Big.new(0)
-var MANUAL_SHOTS : Big = Big.new(0)
-var CURRENT_DAMAGE_CANNON : Big = Big.new(1)
-
 func get_total_tps() -> Big:
 	return TOTAL_TPS
 
@@ -172,6 +176,3 @@ func get_current_value(value_dictionary : Dictionary) -> Big:
 				multiplication_value = multiplication_value.plus(stat.value)
 
 	return total_value.plus(addition_value).multiply(multiplication_value).multiply(Big.new(1).plus(percentage_value))
-
-var WAVE_TIME : float = 10.0
-var WAVE_NUMBER : int = 1
