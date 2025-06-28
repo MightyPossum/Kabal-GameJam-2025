@@ -25,7 +25,7 @@ func _ready():
 	
 	# If no projectile scene is assigned, try to load it
 	if not projectile_scene:
-		projectile_scene = preload("res://assets/scenes/BasicProjectile.tscn")
+		projectile_scene = preload("res://assets/scenes/basic_projectile.tscn")
 
 func _process(delta: float) -> void:
 	time_passed += delta

@@ -115,13 +115,13 @@ wave_progress = NodePath("gameMenu/dataMenu/TextureProgressBar")
 wave_label = NodePath("gameMenu/dataMenu/TextureProgressBar/Label")
 
 [node name="gameMenu" type="MarginContainer" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="dataMenu" type="VBoxContainer" parent="gameMenu"]
 layout_mode = 2
@@ -195,6 +195,7 @@ text = "Y Energy Harvest"
 
 [node name="upgrademenu" type="MarginContainer" parent="."]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 offset_right = 270.0
 offset_bottom = 480.0
@@ -338,6 +339,7 @@ layout_mode = 2
 
 [node name="prestigemenu" type="MarginContainer" parent="."]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 offset_right = 270.0
 offset_bottom = 480.0
