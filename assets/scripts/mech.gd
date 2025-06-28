@@ -3,17 +3,44 @@ extends Node2D
 @export var projectile_scene: PackedScene
 @export var spawn_interval: float = 1.0
 @export var spawn_point_offset: Vector2 = Vector2(0, 0)
+@export var float_speed: float = 15.0
+@export var float_range: float = 10.0
+@export var rotation_speed: float = 0.2
 
 var spawn_timer: Timer
+var origin_position: Vector2
+var float_direction: Vector2
+var time_passed: float = 0.0
 
 func _ready():
 	# Enable input processing for mouse clicks
 	set_process_input(true)
 	GLOBAL.MECH = self  # Set the global mech variable
 	
+	# Store the original position as the center point for floating
+	origin_position = global_position
+	
+	# Set initial random floating direction
+	float_direction = Vector2(randf_range(-1, 1), randf_range(-1, 1)).normalized()
+	
 	# If no projectile scene is assigned, try to load it
 	if not projectile_scene:
 		projectile_scene = preload("res://assets/scenes/BasicProjectile.tscn")
+
+func _process(delta: float) -> void:
+	time_passed += delta
+	
+	# Gentle rotation
+	rotation += rotation_speed * delta
+	
+	# Floating movement with sine wave for smooth motion
+	var float_offset = Vector2(
+		sin(time_passed * 0.8) * float_range * 0.7,
+		cos(time_passed * 0.6) * float_range * 0.5
+	)
+	
+	# Apply the floating motion to the origin position
+	global_position = origin_position + float_offset
 
 func _spawn_projectile():
 	if projectile_scene:

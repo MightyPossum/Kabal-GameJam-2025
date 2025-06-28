@@ -1,0 +1,70 @@
+[gd_scene load_steps=2 format=3 uid="uid://dq3dw3n36esqq"]
+
+[sub_resource type="GDScript" id="GDScript_niryp"]
+script/source = "extends Node2D
+
+@export var star_count: int = 200
+@export var flicker_speed: float = 2.0
+@export var min_star_size: float = 1.0
+@export var max_star_size: float = 3.0
+@export var min_opacity: float = 0.3
+@export var max_opacity: float = 1.0
+
+var stars: Array[Dictionary] = []
+var screen_size: Vector2
+
+func _ready():
+	# Get screen size
+	screen_size = get_viewport().get_visible_rect().size
+	
+	# Generate stars
+	generate_stars()
+
+func generate_stars():
+	stars.clear()
+	
+	for i in range(star_count):
+		var star = {
+			\"position\": Vector2(
+				randf() * screen_size.x,
+				randf() * screen_size.y
+			),
+			\"size\": randf_range(min_star_size, max_star_size),
+			\"base_opacity\": randf_range(min_opacity, max_opacity),
+			\"flicker_offset\": randf() * PI * 2,  # Random phase offset
+			\"flicker_rate\": randf_range(0.5, 2.0)  # Individual flicker speed
+		}
+		stars.append(star)
+
+func _process(delta: float):
+	# Trigger redraw each frame for flickering effect
+	queue_redraw()
+
+func _draw():
+	# Draw each star
+	for star in stars:
+		# Calculate flickering opacity
+		var time_factor = Time.get_time_from_start() * flicker_speed * star.flicker_rate + star.flicker_offset
+		var flicker_multiplier = (sin(time_factor) + 1.0) * 0.5  # Normalize to 0-1
+		var current_opacity = star.base_opacity * (0.4 + flicker_multiplier * 0.6)  # Keep some minimum brightness
+		
+		# Set star color (white with calculated opacity)
+		var star_color = Color(1.0, 1.0, 1.0, current_opacity)
+		
+		# Draw the star as a small circle
+		draw_circle(star.position, star.size, star_color)
+		
+		# Add a subtle glow effect for larger stars
+		if star.size > 2.0:
+			var glow_color = Color(1.0, 1.0, 1.0, current_opacity * 0.3)
+			draw_circle(star.position, star.size * 1.5, glow_color)
+"
+
+[node name="Starfield" type="Node2D"]
+script = SubResource("GDScript_niryp")
+star_count = 200
+flicker_speed = 2.0
+min_star_size = 1.0
+max_star_size = 3.0
+min_opacity = 0.3
+max_opacity = 1.0
