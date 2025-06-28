@@ -16,6 +16,15 @@ script = ExtResource("1_tbcuu")
 [node name="ThrusterParticles" parent="." instance=ExtResource("2_epkyn")]
 position = Vector2(-20, 9)
 
+[node name="ThrusterParticles" parent="ThrusterParticles" instance=ExtResource("2_epkyn")]
+position = Vector2(42, -2)
+
+[node name="ThrusterParticles" parent="ThrusterParticles/ThrusterParticles" instance=ExtResource("2_epkyn")]
+position = Vector2(-11, 29)
+
+[node name="ThrusterParticles" parent="ThrusterParticles/ThrusterParticles/ThrusterParticles" instance=ExtResource("2_epkyn")]
+position = Vector2(-22, 0)
+
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_tbcuu")
 
