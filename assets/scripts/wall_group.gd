@@ -9,9 +9,18 @@ func add_wall(wall: Node) -> void:
 func destroy_walls() -> void:
 	if walls.size() > 0:
 		var energy_count = randi_range(1, 2)
+		var selected_walls = []
+		
 		for i in range(energy_count):
-			var random_wall = walls[randi() % walls.size()]
-			random_wall.spawn_energy()
+			var available_walls = []
+			for wall in walls:
+				if not selected_walls.has(wall):
+					available_walls.append(wall)
+			
+			if available_walls.size() > 0:
+				var random_wall = available_walls[randi() % available_walls.size()]
+				selected_walls.append(random_wall)
+				random_wall.spawn_energy()
 	
 	for wall in walls:
 		print("Destroying wall: %s" % wall.name)
