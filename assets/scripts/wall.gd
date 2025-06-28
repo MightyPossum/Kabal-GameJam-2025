@@ -57,4 +57,4 @@ func _on_area_2d_area_exited(area: Area2D) -> void:
 func got_hit() -> void:
 	# Handle the wall being hit by a projectile
 	print("Wall got hit!")
-	wall_group.got_hit(1) 
+	wall_group.got_hit(Big.new(1)) 

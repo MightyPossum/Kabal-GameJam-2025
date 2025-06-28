@@ -17,7 +17,19 @@ var directions = [
 	{"name": "East", "offset": Vector2(1, 0), "vertical": false, "flipped": true}
 ]
 
+func are_walls_visible() -> bool:
+	var viewport_rect = get_viewport().get_visible_rect()
+	for child in get_children():
+		print("Checking child: %s" % child.name)
+		if child.is_in_group("wall"):
+			print("Found wall: %s" % child.name)
+			# Optionally, check if child is on screen:
+			if viewport_rect.has_point(child.global_position):
+				return true
+	return false
+
 func _ready():
+	GLOBAL.GAME_SCENE = self # Set the global game scene variable
 	# Find the Mech at center
 	mech = $Mech
 	mech.position = get_viewport_rect().size / 2

@@ -19,6 +19,9 @@ func _ready():
 		projectile_scene = preload("res://assets/scenes/BasicProjectile.tscn")
 
 func _spawn_projectile():
+	if not GLOBAL.GAME_SCENE.are_walls_visible():
+		return	# Do not spawn if walls are not visible
+		
 	if projectile_scene:
 		var projectile = projectile_scene.instantiate()
 		
