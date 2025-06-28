@@ -13,6 +13,8 @@ func _ready():
 	spawn_timer.timeout.connect(_spawn_projectile)
 	add_child(spawn_timer)
 	spawn_timer.start()
+
+	GLOBAL.STATS  =  Stats.new()
 	
 	# If no projectile scene is assigned, try to load it
 	if not projectile_scene:
@@ -46,3 +48,8 @@ func start_spawning():
 func stop_spawning():
 	if spawn_timer:
 		spawn_timer.stop()
+
+func increase_cannon_damage(amount: Big):
+	if not GLOBAL.CURRENT_DAMAGE_CANNON:
+		GLOBAL.CURRENT_DAMAGE_CANNON = Big.new(0)
+	GLOBAL.CURRENT_DAMAGE_CANNON.plusEquals(amount)
