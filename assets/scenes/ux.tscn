@@ -85,7 +85,7 @@ texture_margin_top = 5.0
 texture_margin_right = 5.0
 texture_margin_bottom = 5.0
 
-[node name="Ux" type="Control"]
+[node name="Ux" type="Control" node_paths=PackedStringArray("energy_label", "wave_progress", "wave_label")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -93,6 +93,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_jcggf")
+energy_label = NodePath("gameMenu/dataMenu/EnergyData/VBoxContainer/TotalEnergy/energylabel")
+wave_progress = NodePath("gameMenu/dataMenu/TextureProgressBar")
+wave_label = NodePath("gameMenu/dataMenu/TextureProgressBar/Label")
 
 [node name="upgrademenu" type="MarginContainer" parent="."]
 unique_name_in_owner = true
@@ -335,7 +338,7 @@ theme_override_constants/separation = 2
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-fill_mode = 1
+value = 100.0
 stretch_margin_left = 5
 stretch_margin_top = 5
 stretch_margin_right = 5
@@ -379,7 +382,7 @@ size_flags_vertical = 4
 texture = ExtResource("14_2uwks")
 stretch_mode = 2
 
-[node name="Label" type="Label" parent="gameMenu/dataMenu/EnergyData/VBoxContainer/TotalEnergy"]
+[node name="energylabel" type="Label" parent="gameMenu/dataMenu/EnergyData/VBoxContainer/TotalEnergy"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_frtvw")
 theme_override_font_sizes/font_size = 15
