@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://4421g4nsitik"]
+[gd_scene load_steps=5 format=3 uid="uid://4421g4nsitik"]
 
 [ext_resource type="Script" uid="uid://dv2osfh7krcw1" path="res://assets/scripts/wall.gd" id="1_fv7l2"]
+[ext_resource type="PackedScene" uid="uid://dtf5r5cioqwuq" path="res://assets/scenes/energy.tscn" id="2_b7qg2"]
 [ext_resource type="Texture2D" uid="uid://d2vac4hxnhikt" path="res://assets/art/basewall.png" id="2_nddmm"]
 
 [sub_resource type="RectangleShape2D" id="1_shape"]
@@ -8,6 +9,7 @@ size = Vector2(34, 96)
 
 [node name="Wall" type="Node2D" groups=["wall"]]
 script = ExtResource("1_fv7l2")
+energy_scene = ExtResource("2_b7qg2")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_nddmm")
