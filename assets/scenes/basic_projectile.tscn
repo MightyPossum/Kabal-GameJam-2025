@@ -9,10 +9,20 @@ radius = 5.09902
 [node name="basic_projectile" type="Node2D"]
 script = ExtResource("1_kv6yc")
 
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+amount = 24
+lifetime = 0.2
+lifetime_randomness = 0.1
+emission_shape = 1
+emission_sphere_radius = 6.0
+gravity = Vector2(0, 0)
+color = Color(1, 0.0980392, 0.929412, 1)
+
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_kv6yc")
 
 [node name="Area2D" type="Area2D" parent="."]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_kv6yc")

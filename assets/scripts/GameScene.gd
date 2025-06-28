@@ -31,6 +31,7 @@ func are_walls_visible() -> bool:
 
 func _ready():
 	var _initialized = initialize_stats()
+	AudioManager.play_sound(preload("res://assets/gym.wav"), 0.2)
 	GLOBAL.GAME_SCENE = self # Set the global game scene variable
 	mech = $Mech
 	mech.position = get_viewport_rect().size / 2
@@ -42,7 +43,7 @@ func get_wall_health_for_wave(wave: int) -> Big:
 
 func spawn_walls():
 	var wall_group : WallGroup = WallGroup.new()
-	wall_group.walls_health = get_wall_health_for_wave(wave_number)
+	wall_group.walls_health = get_wall_health_for_wave(GLOBAL.WAVE_NUMBER)
 	for dir in directions:
 		var wall = WALL_SCENE.instantiate()
 		wall.name = "Wall_%s" % dir["name"]
@@ -60,8 +61,8 @@ func spawn_walls():
 func spawn_waves() -> void:
 	for i in range(5000):
 		spawn_walls()
-		wave_number += 1
-		await get_tree().create_timer(20.0).timeout
+		GLOBAL.WAVE_NUMBER += 1
+		await get_tree().create_timer(GLOBAL.WAVE_TIME).timeout
 
 func initialize_stats() -> bool:
 	GLOBAL.STATS = Stats.new()

@@ -62,3 +62,4 @@ func spawn_energy() -> void:
 	var energy = energy_scene.instantiate()
 	energy.global_position = global_position		
 	get_tree().get_root().add_child(energy)
+	AudioManager.play_sound(preload("res://assets/audio/explosion.wav"), 0.5)

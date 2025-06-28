@@ -69,8 +69,8 @@ enum VALUE_APPLICATION_TYPE {
 	MULTIPLICATION = 2,
 }
 
-
 var GAME_SCENE : Node = null
+var MECH : Node2D = null
 var ENERGY : int = 0
 var STATS : Stats
 
@@ -172,3 +172,6 @@ func get_current_value(value_dictionary : Dictionary) -> Big:
 				multiplication_value = multiplication_value.plus(stat.value)
 
 	return total_value.plus(addition_value).multiply(multiplication_value).multiply(Big.new(1).plus(percentage_value))
+
+var WAVE_TIME : float = 10.0
+var WAVE_NUMBER : int = 1

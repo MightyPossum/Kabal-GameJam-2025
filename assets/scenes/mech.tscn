@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://debg83k4fjtb5"]
+[gd_scene load_steps=6 format=3 uid="uid://debg83k4fjtb5"]
 
 [ext_resource type="Script" uid="uid://hg8lhr6gyq2t" path="res://assets/scripts/mech.gd" id="1_tbcuu"]
+[ext_resource type="PackedScene" uid="uid://dowsmtxjlqbk4" path="res://assets/scenes/thruster_particles.tscn" id="2_epkyn"]
 [ext_resource type="Texture2D" uid="uid://c5mocbq4p6oc5" path="res://assets/art/mechinaboxmech.png" id="2_tbcuu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jaycq"]
@@ -11,6 +12,21 @@ size = Vector2(25.5, 81)
 
 [node name="Mech" type="Node2D"]
 script = ExtResource("1_tbcuu")
+float_speed = 5.0
+float_range = 7.0
+rotation_speed = 0.0
+
+[node name="ThrusterParticles" parent="." instance=ExtResource("2_epkyn")]
+position = Vector2(-20, 9)
+
+[node name="ThrusterParticles" parent="ThrusterParticles" instance=ExtResource("2_epkyn")]
+position = Vector2(42, -2)
+
+[node name="ThrusterParticles" parent="ThrusterParticles/ThrusterParticles" instance=ExtResource("2_epkyn")]
+position = Vector2(-11, 29)
+
+[node name="ThrusterParticles" parent="ThrusterParticles/ThrusterParticles/ThrusterParticles" instance=ExtResource("2_epkyn")]
+position = Vector2(-22, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_tbcuu")
