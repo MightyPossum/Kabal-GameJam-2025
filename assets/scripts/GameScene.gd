@@ -9,6 +9,10 @@ const WALL_DISTANCE := 400
 var walls : Dictionary = {}
 var mech
 
+var wall_health_base : Big = Big.new(4)
+var wall_health : Big = wall_health_base
+var wave_number : int = 1
+
 # Directions: (name, offset, vertical, vertical_angle, flipped)
 var directions = [
 	{"name": "North", "offset": Vector2(0, -1), "vertical": true, "vertical_angle": 90.0, "flipped": false},
@@ -20,24 +24,24 @@ var directions = [
 func are_walls_visible() -> bool:
 	var viewport_rect = get_viewport().get_visible_rect()
 	for child in get_children():
-		print("Checking child: %s" % child.name)
 		if child.is_in_group("wall"):
-			print("Found wall: %s" % child.name)
-			# Optionally, check if child is on screen:
 			if viewport_rect.has_point(child.global_position):
 				return true
 	return false
 
 func _ready():
 	GLOBAL.GAME_SCENE = self # Set the global game scene variable
-	# Find the Mech at center
 	mech = $Mech
 	mech.position = get_viewport_rect().size / 2
-
 	await spawn_waves()
+
+func get_wall_health_for_wave(wave: int) -> Big:
+	# Example idle game scaling: base * (1.15 ^ (wave-1))
+	return Big.times(wall_health_base, Big.new(pow(1.15, wave-1)))
 
 func spawn_walls():
 	var wall_group : WallGroup = WallGroup.new()
+	wall_group.walls_health = get_wall_health_for_wave(wave_number)
 	for dir in directions:
 		var wall = WALL_SCENE.instantiate()
 		wall.name = "Wall_%s" % dir["name"]
@@ -55,6 +59,5 @@ func spawn_walls():
 func spawn_waves() -> void:
 	for i in range(5000):
 		spawn_walls()
+		wave_number += 1
 		await get_tree().create_timer(20.0).timeout
-
-# No need for _process, as wall movement is now handled by each wall itself.
