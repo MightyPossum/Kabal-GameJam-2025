@@ -6,7 +6,7 @@ extends Node2D
 var target_position: Vector2
 var rotation_angle: float = 0.0
 var collided : bool = false
-
+@export var energy_scene: PackedScene
 var wall_group : WallGroup
 
 func set_rotation_meta(vertical: bool, angle: float = 90.0, flipped: bool = false):
@@ -58,3 +58,8 @@ func got_hit() -> void:
 	# Handle the wall being hit by a projectile
 	print("Wall got hit!")
 	wall_group.got_hit(Big.new(1)) 
+
+func spawn_energy() -> void:
+	var energy = energy_scene.instantiate()
+	energy.global_position = global_position		
+	get_tree().get_root().add_child(energy)

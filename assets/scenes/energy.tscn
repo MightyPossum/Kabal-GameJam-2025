@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://dtf5r5cioqwuq"]
+
+[ext_resource type="Texture2D" uid="uid://0we3u01pucc6" path="res://assets/art/energy.png" id="1_2dl3v"]
+[ext_resource type="Script" uid="uid://ctxq4iey1k01i" path="res://assets/scripts/energy.gd" id="1_x87l4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2dl3v"]
+size = Vector2(12, 16)
+
+[node name="energy" type="Node2D"]
+script = ExtResource("1_x87l4")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_2dl3v")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_2dl3v")
