@@ -1,15 +1,36 @@
-[gd_scene load_steps=12 format=3 uid="uid://4w8ro62cr66"]
+[gd_scene load_steps=25 format=3 uid="uid://4w8ro62cr66"]
 
 [ext_resource type="Script" uid="uid://b4uqlf0ire15l" path="res://assets/scenes/ux.gd" id="1_jcggf"]
 [ext_resource type="Texture2D" uid="uid://2t7xdba3i8an" path="res://assets/art/ux/spr_upgrade_background.png" id="1_jthcv"]
 [ext_resource type="Texture2D" uid="uid://dmf71xs1vifsd" path="res://assets/art/ux/spr_upgrade_button.png" id="1_ml48v"]
 [ext_resource type="Texture2D" uid="uid://cqwykc2p3xfuh" path="res://assets/art/ux/spr_menu_background.png" id="1_p0xmd"]
+[ext_resource type="FontFile" uid="uid://c6gh7arhr5ys3" path="res://assets/art/ux/font/PixelifySans-VariableFont_wght.ttf" id="2_frtvw"]
 [ext_resource type="Texture2D" uid="uid://bge8il6s8f8qm" path="res://assets/art/ux/spr_upgrade_background_description.png" id="2_ieyc5"]
+[ext_resource type="Texture2D" uid="uid://lrpgd3uu6x8v" path="res://assets/art/ux/spr_upgrade_button_hover.png" id="3_u4p3t"]
 [ext_resource type="Texture2D" uid="uid://dt80q0i06coey" path="res://assets/art/ux/spr_upgrade_button_border.png" id="4_jcggf"]
 [ext_resource type="Texture2D" uid="uid://belrajs1upru3" path="res://assets/art/ux/spr_menu_button.png" id="4_ml48v"]
+[ext_resource type="Texture2D" uid="uid://dbk7hp0lr1n3h" path="res://assets/art/ux/spr_upgrade_button_border_hover.png" id="7_r0f6b"]
+[ext_resource type="Texture2D" uid="uid://ck55cr8lt7e1i" path="res://assets/art/ux/spr_menu_button_hover.png" id="8_7orci"]
+[ext_resource type="Texture2D" uid="uid://dp8nrlj8bp8cq" path="res://assets/art/ux/spr_time_bar_bg.png" id="12_7w7j3"]
+[ext_resource type="Texture2D" uid="uid://d4f177qekn5pu" path="res://assets/art/ux/spr_time_bar_fill.png" id="13_umiw7"]
+[ext_resource type="Texture2D" uid="uid://0we3u01pucc6" path="res://assets/art/energy.png" id="14_2uwks"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7w7j3"]
+texture = ExtResource("3_u4p3t")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3umoj"]
 texture = ExtResource("1_ml48v")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_umiw7"]
+texture = ExtResource("3_u4p3t")
 texture_margin_left = 5.0
 texture_margin_top = 5.0
 texture_margin_right = 5.0
@@ -22,6 +43,13 @@ texture_margin_top = 5.0
 texture_margin_right = 5.0
 texture_margin_bottom = 5.0
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2uwks"]
+texture = ExtResource("7_r0f6b")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7orci"]
 texture = ExtResource("4_jcggf")
 texture_margin_left = 5.0
@@ -29,8 +57,33 @@ texture_margin_top = 5.0
 texture_margin_right = 5.0
 texture_margin_bottom = 5.0
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_u4p3t"]
+texture = ExtResource("8_7orci")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jcggf"]
 texture = ExtResource("4_ml48v")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_r0f6b"]
+texture = ExtResource("8_7orci")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_u1cf5"]
+texture = ExtResource("8_7orci")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
 
 [node name="Ux" type="Control"]
 layout_mode = 3
@@ -60,6 +113,10 @@ size_flags_vertical = 0
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_frtvw")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/hover = SubResource("StyleBoxTexture_7w7j3")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_7w7j3")
 theme_override_styles/normal = SubResource("StyleBoxTexture_3umoj")
 text = "Return"
 
@@ -89,7 +146,7 @@ anchor_right = 0.5
 offset_left = -130.0
 offset_top = 4.0
 offset_right = 129.0
-offset_bottom = 192.0
+offset_bottom = 159.0
 grow_horizontal = 2
 size_flags_vertical = 3
 texture = ExtResource("2_ieyc5")
@@ -114,6 +171,8 @@ theme_override_constants/margin_bottom = 5
 [node name="Label" type="Label" parent="upgrademenu/VBoxContainer/background/upgrade_description/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 1
+theme_override_fonts/font = ExtResource("2_frtvw")
+theme_override_font_sizes/font_size = 15
 text = "Title - Level
 Cost
 
@@ -136,7 +195,11 @@ theme_override_constants/margin_right = 6
 
 [node name="purchase_button" type="Button" parent="upgrademenu/VBoxContainer/background/purchase"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(260, 0)
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_frtvw")
+theme_override_styles/hover = SubResource("StyleBoxTexture_umiw7")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_umiw7")
 theme_override_styles/normal = SubResource("StyleBoxTexture_frtvw")
 text = "Purchase Upgrade"
 
@@ -168,6 +231,8 @@ layout_mode = 2
 [node name="upgrade_icon" type="Button" parent="upgrademenu/VBoxContainer/background/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
+theme_override_styles/hover = SubResource("StyleBoxTexture_2uwks")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_2uwks")
 theme_override_styles/normal = SubResource("StyleBoxTexture_7orci")
 
 [node name="Control" type="Control" parent="upgrademenu/VBoxContainer"]
@@ -221,9 +286,12 @@ custom_minimum_size = Vector2(80, 60)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_styles/hover = SubResource("StyleBoxTexture_jcggf")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_jcggf")
+theme_override_fonts/font = ExtResource("2_frtvw")
+theme_override_font_sizes/font_size = 13
+theme_override_styles/hover = SubResource("StyleBoxTexture_u4p3t")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_u4p3t")
 theme_override_styles/normal = SubResource("StyleBoxTexture_jcggf")
+text = "Upgrades"
 
 [node name="prestige" type="Button" parent="basemenu/VBoxContainer/NinePatchRect/MarginContainer/HBoxContainer"]
 unique_name_in_owner = true
@@ -231,9 +299,12 @@ custom_minimum_size = Vector2(80, 60)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_styles/hover = SubResource("StyleBoxTexture_jcggf")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_jcggf")
+theme_override_fonts/font = ExtResource("2_frtvw")
+theme_override_font_sizes/font_size = 13
+theme_override_styles/hover = SubResource("StyleBoxTexture_r0f6b")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_r0f6b")
 theme_override_styles/normal = SubResource("StyleBoxTexture_jcggf")
+text = "Prestige"
 
 [node name="stats" type="Button" parent="basemenu/VBoxContainer/NinePatchRect/MarginContainer/HBoxContainer"]
 unique_name_in_owner = true
@@ -241,6 +312,87 @@ custom_minimum_size = Vector2(80, 60)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_styles/hover = SubResource("StyleBoxTexture_jcggf")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_jcggf")
+theme_override_fonts/font = ExtResource("2_frtvw")
+theme_override_font_sizes/font_size = 13
+theme_override_styles/hover = SubResource("StyleBoxTexture_u1cf5")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_u1cf5")
 theme_override_styles/normal = SubResource("StyleBoxTexture_jcggf")
+text = "Stats"
+
+[node name="gameMenu" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="dataMenu" type="VBoxContainer" parent="gameMenu"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="gameMenu/dataMenu"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+fill_mode = 1
+stretch_margin_left = 5
+stretch_margin_top = 5
+stretch_margin_right = 5
+stretch_margin_bottom = 5
+texture_under = ExtResource("12_7w7j3")
+texture_progress = ExtResource("13_umiw7")
+
+[node name="Label" type="Label" parent="gameMenu/dataMenu/TextureProgressBar"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -84.5
+offset_top = -6.5
+offset_right = 84.5
+offset_bottom = 6.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_frtvw")
+theme_override_font_sizes/font_size = 10
+text = "Next containment box in X seconds"
+
+[node name="EnergyData" type="MarginContainer" parent="gameMenu/dataMenu"]
+custom_minimum_size = Vector2(270, 40)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="gameMenu/dataMenu/EnergyData"]
+layout_mode = 2
+
+[node name="TotalEnergy" type="HBoxContainer" parent="gameMenu/dataMenu/EnergyData/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="gameMenu/dataMenu/EnergyData/VBoxContainer/TotalEnergy"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("14_2uwks")
+stretch_mode = 2
+
+[node name="Label" type="Label" parent="gameMenu/dataMenu/EnergyData/VBoxContainer/TotalEnergy"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_frtvw")
+theme_override_font_sizes/font_size = 15
+text = "1234"
+
+[node name="EPS" type="Label" parent="gameMenu/dataMenu/EnergyData/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_frtvw")
+theme_override_font_sizes/font_size = 13
+text = "X Energy Per Second"
+
+[node name="EPC" type="Label" parent="gameMenu/dataMenu/EnergyData/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_frtvw")
+theme_override_font_sizes/font_size = 13
+text = "Y Energy Harvest"

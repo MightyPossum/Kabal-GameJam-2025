@@ -12,6 +12,9 @@ size = Vector2(25.5, 81)
 
 [node name="Mech" type="Node2D"]
 script = ExtResource("1_tbcuu")
+float_speed = 5.0
+float_range = 7.0
+rotation_speed = 0.0
 
 [node name="ThrusterParticles" parent="." instance=ExtResource("2_epkyn")]
 position = Vector2(-20, 9)
