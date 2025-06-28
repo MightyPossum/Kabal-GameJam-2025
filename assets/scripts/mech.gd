@@ -25,6 +25,7 @@ func _spawn_projectile():
 		
 		# Add to the scene tree (add to parent so projectiles persist if mech is destroyed)
 		get_parent().add_child(projectile)
+		AudioManager.play_sound(preload("res://assets/audio/laserShoot.wav"), 0.5)  # Play shooting sound
 	else:
 		print("Warning: No projectile scene assigned to mech!")
 

@@ -68,4 +68,5 @@ func _input(event: InputEvent) -> void:
 				get_tree().get_root().add_child(particles)
 				GLOBAL.ENERGY += 1
 				print("ENERGY: " + str(GLOBAL.ENERGY))
+				AudioManager.play_sound(preload("res://assets/audio/powerUp.wav"), 0.5)
 				queue_free()

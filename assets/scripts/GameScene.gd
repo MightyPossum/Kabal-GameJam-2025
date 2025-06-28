@@ -30,6 +30,7 @@ func are_walls_visible() -> bool:
 	return false
 
 func _ready():
+	AudioManager.play_sound(preload("res://assets/gym.wav"), 0.2)
 	GLOBAL.GAME_SCENE = self # Set the global game scene variable
 	mech = $Mech
 	mech.position = get_viewport_rect().size / 2

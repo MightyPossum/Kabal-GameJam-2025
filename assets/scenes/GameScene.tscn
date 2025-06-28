@@ -15,3 +15,7 @@ projectile_scene = ExtResource("2_8oxkv")
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Ux" parent="CanvasLayer" instance=ExtResource("4_iacku")]
+offset_left = -8.0
+offset_top = -8.0
+offset_right = -8.0
+offset_bottom = -8.0
