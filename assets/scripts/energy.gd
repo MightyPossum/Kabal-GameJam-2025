@@ -2,13 +2,24 @@ extends Node2D
 @export var particle_scene: PackedScene
 @export var float_speed: float = 10.0
 @export var rotation_speed: float = 1.0
+@export var spawn_duration: float = 0.3
 
 var velocity: Vector2
 var screen_size: Vector2
+var spawn_tween: Tween
 
 func _ready() -> void:
 	# Make sure the energy can receive input events
 	set_process_input(true)
+	
+	# Start with almost zero scale for spawn animation
+	scale = Vector2(0.1, 0.1)
+	
+	# Create and configure spawn animation
+	spawn_tween = create_tween()
+	spawn_tween.tween_property(self, "scale", Vector2(1.0, 1.0), spawn_duration)
+	spawn_tween.set_ease(Tween.EASE_OUT)
+	spawn_tween.set_trans(Tween.TRANS_BACK)
 	
 	# Get screen size
 	screen_size = get_viewport().get_visible_rect().size
