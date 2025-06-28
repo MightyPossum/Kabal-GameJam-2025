@@ -1,13 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://dtf5r5cioqwuq"]
+[gd_scene load_steps=5 format=3 uid="uid://dtf5r5cioqwuq"]
 
 [ext_resource type="Texture2D" uid="uid://0we3u01pucc6" path="res://assets/art/energy.png" id="1_2dl3v"]
 [ext_resource type="Script" uid="uid://ctxq4iey1k01i" path="res://assets/scripts/energy.gd" id="1_x87l4"]
+[ext_resource type="PackedScene" uid="uid://sse26sfc034a" path="res://assets/scenes/particles/energyparticles.tscn" id="2_e2o4h"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2dl3v"]
 size = Vector2(12, 16)
 
 [node name="energy" type="Node2D"]
 script = ExtResource("1_x87l4")
+particle_scene = ExtResource("2_e2o4h")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_2dl3v")

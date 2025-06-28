@@ -7,21 +7,14 @@ extends Node2D
 var spawn_timer: Timer
 
 func _ready():
-	# Create and setup the spawn timer
-	spawn_timer = Timer.new()
-	spawn_timer.wait_time = spawn_interval
-	spawn_timer.timeout.connect(_spawn_projectile)
-	add_child(spawn_timer)
-	spawn_timer.start()
+	# Enable input processing for mouse clicks
+	set_process_input(true)
 	
 	# If no projectile scene is assigned, try to load it
 	if not projectile_scene:
 		projectile_scene = preload("res://assets/scenes/BasicProjectile.tscn")
 
 func _spawn_projectile():
-	if not GLOBAL.GAME_SCENE.are_walls_visible():
-		return	# Do not spawn if walls are not visible
-		
 	if projectile_scene:
 		var projectile = projectile_scene.instantiate()
 		
@@ -34,15 +27,12 @@ func _spawn_projectile():
 	else:
 		print("Warning: No projectile scene assigned to mech!")
 
-func set_spawn_interval(new_interval: float):
-	spawn_interval = new_interval
-	if spawn_timer:
-		spawn_timer.wait_time = spawn_interval
-
-func start_spawning():
-	if spawn_timer:
-		spawn_timer.start()
-
-func stop_spawning():
-	if spawn_timer:
-		spawn_timer.stop()
+func _input(event: InputEvent) -> void:
+	if event is InputEventMouseButton:
+		var mouse_event = event as InputEventMouseButton
+		if mouse_event.pressed and mouse_event.button_index == MOUSE_BUTTON_LEFT:
+			# Check if the mouse is over this mech
+			var mouse_pos = get_global_mouse_position()
+			var mech_rect = Rect2(global_position - Vector2(32, 32), Vector2(64, 64))  # Adjust size as needed
+			if mech_rect.has_point(mouse_pos):
+				_spawn_projectile()

@@ -23,6 +23,11 @@ func _ready():
 func _physics_process(delta):
 	# Move the projectile
 	position += velocity * delta
+	
+	# Check if projectile is outside screen bounds
+	var screen_size = get_viewport().get_visible_rect().size
+	if position.x < 0 or position.x > screen_size.x or position.y < 0 or position.y > screen_size.y:
+		queue_free()
 
 func _on_lifetime_expired():
 	queue_free()
