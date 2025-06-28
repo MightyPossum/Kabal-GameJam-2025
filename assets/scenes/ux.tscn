@@ -97,6 +97,85 @@ energy_label = NodePath("gameMenu/dataMenu/EnergyData/VBoxContainer/TotalEnergy/
 wave_progress = NodePath("gameMenu/dataMenu/TextureProgressBar")
 wave_label = NodePath("gameMenu/dataMenu/TextureProgressBar/Label")
 
+[node name="gameMenu" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="dataMenu" type="VBoxContainer" parent="gameMenu"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="gameMenu/dataMenu"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+value = 100.0
+stretch_margin_left = 5
+stretch_margin_top = 5
+stretch_margin_right = 5
+stretch_margin_bottom = 5
+texture_under = ExtResource("12_7w7j3")
+texture_progress = ExtResource("13_umiw7")
+
+[node name="Label" type="Label" parent="gameMenu/dataMenu/TextureProgressBar"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -84.5
+offset_top = -6.5
+offset_right = 84.5
+offset_bottom = 6.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_frtvw")
+theme_override_font_sizes/font_size = 10
+text = "Next containment box in X seconds"
+
+[node name="EnergyData" type="MarginContainer" parent="gameMenu/dataMenu"]
+custom_minimum_size = Vector2(270, 40)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="gameMenu/dataMenu/EnergyData"]
+layout_mode = 2
+
+[node name="TotalEnergy" type="HBoxContainer" parent="gameMenu/dataMenu/EnergyData/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="gameMenu/dataMenu/EnergyData/VBoxContainer/TotalEnergy"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("14_2uwks")
+stretch_mode = 2
+
+[node name="energylabel" type="Label" parent="gameMenu/dataMenu/EnergyData/VBoxContainer/TotalEnergy"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_frtvw")
+theme_override_font_sizes/font_size = 15
+text = "1234"
+
+[node name="EPS" type="Label" parent="gameMenu/dataMenu/EnergyData/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_frtvw")
+theme_override_font_sizes/font_size = 13
+text = "X Energy Per Second"
+
+[node name="EPC" type="Label" parent="gameMenu/dataMenu/EnergyData/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_frtvw")
+theme_override_font_sizes/font_size = 13
+text = "Y Energy Harvest"
+
 [node name="upgrademenu" type="MarginContainer" parent="."]
 unique_name_in_owner = true
 visible = false
@@ -321,81 +400,3 @@ theme_override_styles/hover = SubResource("StyleBoxTexture_u1cf5")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_u1cf5")
 theme_override_styles/normal = SubResource("StyleBoxTexture_jcggf")
 text = "Stats"
-
-[node name="gameMenu" type="MarginContainer" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="dataMenu" type="VBoxContainer" parent="gameMenu"]
-layout_mode = 2
-theme_override_constants/separation = 2
-
-[node name="TextureProgressBar" type="TextureProgressBar" parent="gameMenu/dataMenu"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-value = 100.0
-stretch_margin_left = 5
-stretch_margin_top = 5
-stretch_margin_right = 5
-stretch_margin_bottom = 5
-texture_under = ExtResource("12_7w7j3")
-texture_progress = ExtResource("13_umiw7")
-
-[node name="Label" type="Label" parent="gameMenu/dataMenu/TextureProgressBar"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -84.5
-offset_top = -6.5
-offset_right = 84.5
-offset_bottom = 6.5
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_fonts/font = ExtResource("2_frtvw")
-theme_override_font_sizes/font_size = 10
-text = "Next containment box in X seconds"
-
-[node name="EnergyData" type="MarginContainer" parent="gameMenu/dataMenu"]
-custom_minimum_size = Vector2(270, 40)
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="gameMenu/dataMenu/EnergyData"]
-layout_mode = 2
-
-[node name="TotalEnergy" type="HBoxContainer" parent="gameMenu/dataMenu/EnergyData/VBoxContainer"]
-layout_mode = 2
-
-[node name="TextureRect" type="TextureRect" parent="gameMenu/dataMenu/EnergyData/VBoxContainer/TotalEnergy"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-texture = ExtResource("14_2uwks")
-stretch_mode = 2
-
-[node name="energylabel" type="Label" parent="gameMenu/dataMenu/EnergyData/VBoxContainer/TotalEnergy"]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("2_frtvw")
-theme_override_font_sizes/font_size = 15
-text = "1234"
-
-[node name="EPS" type="Label" parent="gameMenu/dataMenu/EnergyData/VBoxContainer"]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("2_frtvw")
-theme_override_font_sizes/font_size = 13
-text = "X Energy Per Second"
-
-[node name="EPC" type="Label" parent="gameMenu/dataMenu/EnergyData/VBoxContainer"]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("2_frtvw")
-theme_override_font_sizes/font_size = 13
-text = "Y Energy Harvest"
