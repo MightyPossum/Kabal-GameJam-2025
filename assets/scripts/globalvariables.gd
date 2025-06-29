@@ -85,7 +85,7 @@ var TOTAL_EPS : Big = Big.new(0)
 var TOTAL_LIFETIME_COINS_GATHERED : Big = Big.new(0)
 var MANUAL_SHOTS : Big = Big.new(0)
 
-var WAVE_TIME : float = 0.50
+var WAVE_TIME : float = 10.0
 var WAVE_NUMBER : int = 1
 
 var ENERGY_PER_SECOND : Big = Big.new(0):
