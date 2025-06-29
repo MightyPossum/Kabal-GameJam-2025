@@ -1,0 +1,56 @@
+[gd_scene load_steps=7 format=3 uid="uid://v8ap3ght2h0m"]
+
+[ext_resource type="Script" uid="uid://da1cnp5bgxgh8" path="res://assets/scripts/upgrade_icon.gd" id="1_7uxke"]
+[ext_resource type="Texture2D" uid="uid://dtqoljiyaribn" path="res://assets/art/ux/upgrade_icons/energy_collector_1.png" id="1_akwlb"]
+[ext_resource type="Texture2D" uid="uid://dbk7hp0lr1n3h" path="res://assets/art/ux/spr_upgrade_button_border_hover.png" id="1_ftt46"]
+[ext_resource type="Texture2D" uid="uid://dt80q0i06coey" path="res://assets/art/ux/spr_upgrade_button_border.png" id="2_akwlb"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2uwks"]
+texture = ExtResource("1_ftt46")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7orci"]
+texture = ExtResource("2_akwlb")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+
+[node name="upgrade_icon" type="Control"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_right = -219.0
+offset_bottom = -430.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_7uxke")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+texture = ExtResource("1_akwlb")
+
+[node name="upgrade_icon" type="Button" parent="MarginContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+theme_override_styles/hover = SubResource("StyleBoxTexture_2uwks")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_2uwks")
+theme_override_styles/normal = SubResource("StyleBoxTexture_7orci")
