@@ -7,7 +7,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2dl3v"]
 size = Vector2(12, 16)
 
-[node name="energy" type="Node2D"]
+[node name="energy" type="Node2D" groups=["energy"]]
 script = ExtResource("1_x87l4")
 particle_scene = ExtResource("2_e2o4h")
 

@@ -79,6 +79,7 @@ var ENERGY_STRING : String:
 		return ENERGY.toAA()
 
 var STATS : Stats
+var LOCKED : bool = false 
 
 var TOTAL_CLICKS : Big = Big.new(0)
 var TOTAL_TPS : Big = Big.new(0)

@@ -46,12 +46,15 @@ func _process(delta: float) -> void:
 func _on_area_2d_area_entered(area: Area2D) -> void:
 	if area.is_in_group("wall"):
 		collided = true
+		GLOBAL.LOCKED = true
 	if area.is_in_group("mech"):
 		collided = true
+		GLOBAL.LOCKED = true
 
 func _on_area_2d_area_exited(area: Area2D) -> void:
 	if area.is_in_group("wall"):
 		collided = false
+		GLOBAL.LOCKED = true
 
 
 func got_hit() -> void:

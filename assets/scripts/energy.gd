@@ -9,6 +9,9 @@ var screen_size: Vector2
 var spawn_tween: Tween
 
 func _ready() -> void:
+	# Add this energy object to the "energy" group
+	add_to_group("energy")
+	
 	# Make sure the energy can receive input events
 	set_process_input(true)
 	

@@ -8,6 +8,7 @@ extends Node2D
 @export var rotation_speed: float = 0.2
 
 var spawn_timer: Timer
+var absorption_timer: Timer
 var origin_position: Vector2
 var float_direction: Vector2
 var time_passed: float = 0.0
@@ -26,6 +27,9 @@ func _ready():
 	# If no projectile scene is assigned, try to load it
 	if not projectile_scene:
 		projectile_scene = preload("res://assets/scenes/basic_projectile.tscn")
+	
+	# Set up absorption timer
+	_setup_absorption_timer()
 
 func _process(delta: float) -> void:
 	time_passed += delta
@@ -41,6 +45,12 @@ func _process(delta: float) -> void:
 	
 	# Apply the floating motion to the origin position
 	global_position = origin_position + float_offset
+	
+	# Update absorption timer interval if it exists and MECH_ABSORPTION has changed
+	if absorption_timer:
+		var new_interval = _calculate_absorption_interval()
+		if abs(absorption_timer.wait_time - new_interval) > 0.1:  # Only update if significant change
+			absorption_timer.wait_time = new_interval
 
 func _spawn_projectile():
 	if projectile_scene:
@@ -70,3 +80,77 @@ func increase_cannon_damage(amount: Big):
 	if not GLOBAL.CURRENT_DAMAGE_CANNON:
 		GLOBAL.CURRENT_DAMAGE_CANNON = Big.new(0)
 	GLOBAL.CURRENT_DAMAGE_CANNON.plusEquals(amount)
+
+func _setup_absorption_timer():
+	absorption_timer = Timer.new()
+	absorption_timer.wait_time = _calculate_absorption_interval()
+	absorption_timer.timeout.connect(_on_absorption_timer_timeout)
+	absorption_timer.autostart = true
+	add_child(absorption_timer)
+
+func update_absorption_rate():
+	# Public function to update the absorption timer interval when MECH_ABSORPTION changes
+	if absorption_timer:
+		absorption_timer.wait_time = _calculate_absorption_interval()
+
+func _calculate_absorption_interval() -> float:
+	# MECH_ABSORPTION is already the timer interval in seconds
+	var absorption_value = GLOBAL.MECH_ABSORPTION.toFloat()
+	
+	# If absorption is 0 or very low, set a very long interval (effectively disabled)
+	if absorption_value <= 0:
+		return 999999.0  # Very long interval when absorption is 0
+	
+	return absorption_value
+
+func _on_absorption_timer_timeout():
+	# Get all energy objects in the "energy" group
+	var energy_nodes = get_tree().get_nodes_in_group("energy")
+	
+	if energy_nodes.size() > 0:
+		# Randomly select one energy object
+		var random_energy = energy_nodes[randi() % energy_nodes.size()]
+		if GLOBAL.LOCKED:
+			_absorb_energy(random_energy)
+	
+	# Update timer interval based on current absorption value
+	absorption_timer.wait_time = _calculate_absorption_interval()
+
+func _absorb_energy(energy_node: Node2D):
+	# Create a tween to move the energy to the mech
+	var absorption_tween = create_tween()
+	var move_duration = 1.0  # Duration for energy to move to mech
+	
+	# Stop the energy's normal movement by setting its velocity to zero
+	if energy_node.has_method("set") and "velocity" in energy_node:
+		energy_node.velocity = Vector2.ZERO
+	
+	# Animate the energy moving towards the mech center
+	absorption_tween.tween_property(energy_node, "global_position", global_position, move_duration)
+	absorption_tween.set_ease(Tween.EASE_IN)
+	absorption_tween.set_trans(Tween.TRANS_CUBIC)
+	
+	# When the tween completes, trigger the energy collection effects
+	absorption_tween.tween_callback(_trigger_energy_collection.bind(energy_node))
+
+func _trigger_energy_collection(energy_node: Node2D):
+	# Check if the energy node still exists
+	if not is_instance_valid(energy_node):
+		return
+	
+	# Trigger the same effects as clicking on energy
+	if energy_node.has_method("get") and energy_node.get("particle_scene"):
+		var particles = energy_node.particle_scene.instantiate()
+		particles.global_position = global_position
+		particles.emitting = true
+		get_tree().get_root().add_child(particles)
+	
+	# Add energy to global energy
+	GLOBAL.ENERGY = GLOBAL.ENERGY.plus(GLOBAL.ENERGY_PER_CELL)
+	print("ENERGY ABSORBED: " + GLOBAL.ENERGY_STRING)
+	
+	# Play absorption sound
+	AudioManager.play_sound(preload("res://assets/audio/powerUp.wav"), 0.5)
+	
+	# Remove the energy node
+	energy_node.queue_free()
