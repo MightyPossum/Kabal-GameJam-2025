@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://br4x64jmickd2"]
+
+[ext_resource type="Texture2D" uid="uid://snknn5b1qpud" path="res://assets/art/wall_drone_thruster_particle.png" id="1_yxd4l"]
+
+[sub_resource type="Gradient" id="Gradient_21c7h"]
+offsets = PackedFloat32Array(0, 0.623457, 1)
+colors = PackedColorArray(0, 0.540265, 0.632228, 1, 0, 1, 1, 1, 1, 1, 1, 0)
+
+[node name="WallDroneParticles" type="Node2D"]
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+amount = 40
+texture = ExtResource("1_yxd4l")
+lifetime = 0.5
+spread = 10.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 100.0
+color_ramp = SubResource("Gradient_21c7h")
