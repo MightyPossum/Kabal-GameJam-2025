@@ -146,14 +146,14 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -84.5
-offset_top = -6.5
-offset_right = 84.5
-offset_bottom = 6.5
+offset_left = -89.0
+offset_top = -5.5
+offset_right = 89.0
+offset_bottom = 7.5
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_fonts/font = ExtResource("2_frtvw")
-theme_override_font_sizes/font_size = 10
+theme_override_fonts/font = ExtResource("6_w3aai")
+theme_override_font_sizes/font_size = 12
 text = "Next containment box in X seconds"
 
 [node name="EnergyData" type="MarginContainer" parent="gameMenu/dataMenu"]
@@ -177,19 +177,19 @@ stretch_mode = 2
 
 [node name="energylabel" type="Label" parent="gameMenu/dataMenu/EnergyData/VBoxContainer/TotalEnergy"]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("2_frtvw")
+theme_override_fonts/font = ExtResource("6_w3aai")
 theme_override_font_sizes/font_size = 15
-text = "1234"
+text = "12345"
 
 [node name="EPS" type="Label" parent="gameMenu/dataMenu/EnergyData/VBoxContainer"]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("2_frtvw")
+theme_override_fonts/font = ExtResource("6_w3aai")
 theme_override_font_sizes/font_size = 13
 text = "X Energy Per Second"
 
 [node name="EPC" type="Label" parent="gameMenu/dataMenu/EnergyData/VBoxContainer"]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("2_frtvw")
+theme_override_fonts/font = ExtResource("6_w3aai")
 theme_override_font_sizes/font_size = 13
 text = "Y Energy Harvest"
 
