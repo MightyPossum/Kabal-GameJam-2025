@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c68v56mmvn474"
-path="res://.godot/imported/energy_cannony_blast_splitter_1.png-9cec1cd7628d7a29626eb2d3e8daae23.ctex"
+path="res://.godot/imported/energy_cannon_blast_splitter_1.png-4f7bdc861ec469ff02ebe7fad7e156b4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/art/ux/upgrade_icons/energy_cannony_blast_splitter_1.png"
-dest_files=["res://.godot/imported/energy_cannony_blast_splitter_1.png-9cec1cd7628d7a29626eb2d3e8daae23.ctex"]
+source_file="res://assets/art/ux/upgrade_icons/energy_cannon_blast_splitter_1.png"
+dest_files=["res://.godot/imported/energy_cannon_blast_splitter_1.png-4f7bdc861ec469ff02ebe7fad7e156b4.ctex"]
 
 [params]
 

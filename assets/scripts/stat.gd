@@ -45,8 +45,8 @@ func check_unlock():
 	match unlock_metric:
 		GLOBAL.UNLOCK_METRIC.ALWAYS_UNLOCKED:
 			is_unlocked = true
-		GLOBAL.UNLOCK_METRIC.TOTAL_TPS:
-			if GLOBAL.get_total_tps().isGreaterThan(unlock_amount):
+		GLOBAL.UNLOCK_METRIC.TOTAL_EPS:
+			if GLOBAL.get_total_eps().isGreaterThan(unlock_amount):
 				is_unlocked = true
 		GLOBAL.UNLOCK_METRIC.TOTAL_CLICKS:
 			if GLOBAL.get_total_clicks().isGreaterThan(unlock_amount):

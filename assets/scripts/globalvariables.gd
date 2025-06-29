@@ -38,7 +38,7 @@ enum STAT_TIER {
 
 enum UNLOCK_METRIC {
 	ALWAYS_UNLOCKED = 0,
-	TOTAL_TPS = 1,
+	TOTAL_EPS = 1,
 	TOTAL_CLICKS = 2,
 	TOTAL_LIFETIME_COINS_GATHERED = 3,
 	ENERGY_INCREASE_T1 = 4,
@@ -72,7 +72,7 @@ var GAME_SCENE : Node = null
 var UX : Control = null
 var MECH : Node2D = null
 
-var ENERGY : Big = Big.new(0)
+var ENERGY : Big = Big.new(8,16)
 var ENERGY_STRING : String:
 	get:
 		return ENERGY.toAA()
@@ -81,7 +81,7 @@ var STATS : Stats
 var LOCKED : bool = false 
 
 var TOTAL_CLICKS : Big = Big.new(0)
-var TOTAL_TPS : Big = Big.new(0)
+var TOTAL_EPS : Big = Big.new(0)
 var TOTAL_LIFETIME_COINS_GATHERED : Big = Big.new(0)
 var MANUAL_SHOTS : Big = Big.new(0)
 
@@ -203,8 +203,8 @@ func to_init_cap(sentence: String) -> String:
 	return " ".join(words)
 # Example: to_init_cap("echo_of_the_collapsing_core") -> "Echo Of The Collapsing Core"
 
-func get_total_tps() -> Big:
-	return TOTAL_TPS
+func get_total_eps() -> Big:
+	return ENERGY_PER_SECOND
 
 func get_total_clicks() -> Big:
 	return TOTAL_CLICKS

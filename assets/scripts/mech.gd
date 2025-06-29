@@ -134,7 +134,6 @@ func _setup_cannon_timer():
 func _calculate_cannon_interval() -> float:
 	# CANNON_SHOOT_RATE is the timer interval in seconds
 	var cannon_rate = GLOBAL.CANNON_SHOOT_RATE.mantissa * GLOBAL.ATTACK_SPEED.exponent
-	print("Cannon shoot rate: " + str(cannon_rate))
 	
 	# If cannon shoot rate is 0 or very low, set a very long interval (effectively disabled)
 	if cannon_rate <= 0:
