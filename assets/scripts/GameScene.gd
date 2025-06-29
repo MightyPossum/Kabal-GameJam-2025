@@ -40,24 +40,6 @@ func _ready():
 
 	GLOBAL.STATS.test_stat_unlock() # Start testing stat unlocks
 
-	
-
-	#print("Initializing energy per second: %s" % GLOBAL.ENERGY_PER_SECOND.toString())
-	#GLOBAL.STATS.stats.get(GLOBAL.STAT_TYPE.ENERGY_AUTO_CANNON).get(GLOBAL.STAT_TIER.CORE).upgrade_level()
-	#print("Energy per second after first CORE upgrade: %s" % GLOBAL.ENERGY_PER_SECOND.toString())
-	#GLOBAL.STATS.stats.get(GLOBAL.STAT_TYPE.ENERGY_CONVERTER).get(GLOBAL.STAT_TIER.ALPHA).upgrade_level()
-	#print("Energy per second after first ALPHA upgrade: %s" % GLOBAL.ENERGY_PER_SECOND.toString())
-	#GLOBAL.STATS.stats.get(GLOBAL.STAT_TYPE.ENERGY_CONVERTER).get(GLOBAL.STAT_TIER.ALPHA).upgrade_level()
-	#print("Energy per second after second ALPHA upgrade: %s" % GLOBAL.ENERGY_PER_SECOND.toString())
-	#GLOBAL.STATS.stats.get(GLOBAL.STAT_TYPE.ENERGY_CONVERTER).get(GLOBAL.STAT_TIER.CORE).upgrade_level()
-	#print("Energy per second after second CORE upgrade: %s" % GLOBAL.ENERGY_PER_SECOND.toString())
-
-	
-	#GLOBAL.STATS.stats.get(GLOBAL.STAT_TYPE.TESSARACT_ENERGY_MATRIX).get(GLOBAL.STAT_TIER.CORE).upgrade_level()
-	
-	#print("Energy per second after Global upgrade: %s" % GLOBAL.ENERGY_PER_SECOND.toString())
-
-
 func _process(delta: float) -> void:
 	timer += delta
 	if timer >= 1.0:

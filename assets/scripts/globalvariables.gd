@@ -17,11 +17,9 @@ enum STAT_TYPE {
 	HARVESTER = 14,
 	ENERGY_AUTO_CANNON = 15,
 	PULSE_OVERDRIVE = 16,
-	DARKFLOW_OVERDRIVE = 17,
-	VOIDSTORM_OVERDRIVE = 18,
-	RIFT_AMPLIFIER = 19,
-	ENERGY_CANNON_BLAST_SPLITTER = 20,
-	VELOCITY_AMPLIFIER = 21,
+	RIFT_AMPLIFIER = 17,
+	ENERGY_CANNON_BLAST_SPLITTER = 18,
+	VELOCITY_AMPLIFIER = 19,
 }
 
 enum STAT_TIER {
@@ -71,6 +69,7 @@ enum VALUE_APPLICATION_TYPE {
 }
 
 var GAME_SCENE : Node = null
+var UX : Control = null
 var MECH : Node2D = null
 
 var ENERGY : Big = Big.new(0)
@@ -85,7 +84,6 @@ var TOTAL_CLICKS : Big = Big.new(0)
 var TOTAL_TPS : Big = Big.new(0)
 var TOTAL_LIFETIME_COINS_GATHERED : Big = Big.new(0)
 var MANUAL_SHOTS : Big = Big.new(0)
-var CURRENT_DAMAGE_CANNON : Big = Big.new(1)
 
 var WAVE_TIME : float = 10.0
 var WAVE_NUMBER : int = 1
@@ -145,6 +143,65 @@ var ATTACK_SPEED : Big = Big.new(1):
 var ATTACK_SPEED_DICTIONARY : Dictionary = {
 	VALUE_APPLICATION_TYPE.BASE: Big.new(1),
 }
+
+var CURRENT_DAMAGE_CANNON : Big = Big.new(1):
+	get:
+		return get_current_value(CURRENT_DAMAGE_CANNON_DICTIONARY, "current_damage_cannon")
+
+var CURRENT_DAMAGE_CANNON_DICTIONARY : Dictionary = {
+	VALUE_APPLICATION_TYPE.BASE: Big.new(1),
+}
+
+
+
+# Lookup array for STAT_TYPE names (lowercase)
+var STAT_TYPE_NAMES := [
+	"", # 0 is unused
+	"energy_converter",
+	"energy_collector",
+	"energy_vault",
+	"power_cell",
+	"tessaract_energy_matrix",
+	"echo_of_the_collapsing_core",
+	"fragment_of_the_first_spark",
+	"omnicore_collection_engine",
+	"singularity_intake",
+	"pulse_of_the_universe",
+	"energy_amplifier",
+	"energy_core",
+	"hollow_drive",
+	"harvester",
+	"energy_auto_cannon",
+	"pulse_overdrive",
+	"rift_amplifier",
+	"energy_cannon_blast_splitter",
+	"velocity_amplifier"
+]
+
+# Lookup array for STAT_TIER names (lowercase)
+var STAT_TIER_NAMES := [
+	"", # 0 is unused
+	"core",
+	"surge",
+	"alpha",
+	"wraithsteel",
+	"stellar",
+	"darkrune",
+	"solarite",
+	"darkflow",
+	"voidcurrent",
+	"starcore",
+	"blightsteel"
+]
+
+# Utility function: Capitalize the first letter of each word in a string (init cap)
+func to_init_cap(sentence: String) -> String:
+	var words = sentence.split("_")
+	for i in range(words.size()):
+		if words[i].length() > 0:
+			words[i] = words[i].substr(0, 1).to_upper() + words[i].substr(1).to_lower()
+	return " ".join(words)
+# Example: to_init_cap("echo_of_the_collapsing_core") -> "Echo Of The Collapsing Core"
 
 func get_total_tps() -> Big:
 	return TOTAL_TPS

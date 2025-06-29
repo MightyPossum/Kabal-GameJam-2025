@@ -15,6 +15,9 @@ enum BUTTONTYPE {
 }
 
 func _ready() -> void:
+
+	GLOBAL.UX = self
+
 	%upgrades.connect("button_up",menu_button_pressed.bind(BUTTONTYPE.UPGRADE))
 	%prestige.connect("button_up",menu_button_pressed.bind(BUTTONTYPE.PRESTIGE))
 	%stats.connect("button_up",menu_button_pressed.bind(BUTTONTYPE.STATS))
@@ -22,7 +25,7 @@ func _ready() -> void:
 	%close_upgrade_menu.connect("button_up",close_menu_pressed.bind(BUTTONTYPE.UPGRADE))
 	# Add more close buttons as needed
 
-	%purchase_button.connect("button_up", purchse_button_pressed)
+	%purchase_button.connect("button_up", purchase_button_pressed)
 
 
 func _process(delta: float) -> void:
@@ -42,13 +45,13 @@ func _process(delta: float) -> void:
 	wave_progress.value = current_wave_time
 	wave_label.text = "Next containment box in %d seconds" % current_wave_time
 
-	
 func menu_button_pressed(button_type: int) -> void:
 
 	%basemenu.hide()
 
 	match button_type:
 		BUTTONTYPE.UPGRADE:
+			print_upgrade_icons()
 			%upgrademenu.show()
 		BUTTONTYPE.PRESTIGE:
 			print("Prestige button pressed")
@@ -71,5 +74,112 @@ func close_menu_pressed(button_type: int) -> void:
 			print("Stats menu closed")
 			# Handle stats menu close logic here
 
-func purchse_button_pressed() -> void:
-	print("Purchase button pressed")
+func purchase_button_pressed() -> void:
+	var stat : Stat
+	if not has_meta("selected_stat"):
+		print("No stat selected for purchase")
+		return
+	else:
+		stat = get_meta("selected_stat")
+
+	if GLOBAL.ENERGY.isGreaterThanOrEqualTo(stat.cost):
+		GLOBAL.ENERGY = GLOBAL.ENERGY.minus(stat.cost)
+		stat.upgrade_level()
+		print("Purchased stat: %s, new level: %d" % [GLOBAL.STAT_TYPE_NAMES[stat.type], stat.level])
+		print_upgrade_icons() # Refresh the icons after purchase
+	else:
+		print("Not enough energy to purchase stat: %s, cost: %s" % [GLOBAL.STAT_TYPE_NAMES[stat.type], stat.cost.toAA()])
+
+
+
+func print_upgrade_icons() -> void:
+	for child in %IconContainer.get_children():
+		child.queue_free() # Clear previous icons
+	for stat_type in GLOBAL.STATS.stats:
+		for stat_tier in GLOBAL.STATS.stats[stat_type]:
+			var stat = GLOBAL.STATS.stats[stat_type][stat_tier]
+
+			if stat.is_unlocked:
+				var icon : Control = load("uid://v8ap3ght2h0m").instantiate()
+				icon.image_string = "res://assets/art/ux/upgrade_icons/%s_%s.png" % [GLOBAL.STAT_TYPE_NAMES[stat.type], stat.tier] 
+				icon.stat = stat
+				if stat.cost.isGreaterThan(GLOBAL.ENERGY):
+					icon.modulate = Color(0.2, 0.2, 0.2, 1) # Red if not affordable
+
+				icon.ux = self
+				%IconContainer.add_child(icon)
+
+func set_upgrade_description(stat: Stat) -> void:
+	var desctiption : String = "%s (%s) - %s \n%s \n\n%s" % [GLOBAL.to_init_cap(GLOBAL.STAT_TYPE_NAMES[stat.type]), GLOBAL.to_init_cap(GLOBAL.STAT_TIER_NAMES[stat.tier]), stat.level, stat.cost.toAA(), get_stat_description(stat)]
+	%description_label.text = desctiption
+
+func get_stat_description(stat : Stat) -> String:
+	var description : String
+
+	match stat.type:
+		GLOBAL.STAT_TYPE.ENERGY_CONVERTER:
+			description = "Increases the energy you automatically generate from your surroundings by %s Energy Per Second (EPS)" % [stat.value_increase_per_level]
+		GLOBAL.STAT_TYPE.ENERGY_COLLECTOR:
+			description = "Increases the energy you harvest from Energy Cells by %s (EPC)" % [stat.value_increase_per_level]
+		GLOBAL.STAT_TYPE.ENERGY_VAULT:
+			description = "Increase energy  from all sources by %s" % [stat.value_increase_per_level]
+		GLOBAL.STAT_TYPE.POWER_CELL:
+			description = "Increase the damage delt by your main cannon by %s" % [stat.value_increase_per_level]
+		GLOBAL.STAT_TYPE.TESSARACT_ENERGY_MATRIX:
+			if stat.level == 0:
+				description = "Multiply the number of Energy Per Second by %s." % [stat.base_value]
+			else:
+				description = "Increase Energy Per Second multiplication from %s to %s." % [stat.value.toAA(), stat.value_increase_per_level]
+		GLOBAL.STAT_TYPE.ECHO_OF_THE_COLLAPSING_CORE:
+			if stat.level == 0:
+				description = "Multiply the number of Energy Per Second by %s." % [stat.base_value]
+			else:
+				description = "Increase Energy Per Second multiplication from %s to %s." % [stat.value.toAA(), stat.value_increase_per_level]
+		GLOBAL.STAT_TYPE.FRAGMENT_OF_THE_FIRST_SPARK:
+			if stat.level == 0:
+				description = "Multiply the number of Energy Per Second by %s." % [stat.base_value]
+			else:
+				description = "Increase Energy Per Second multiplication from %s to %s." % [stat.value.toAA(), stat.value_increase_per_level]
+		GLOBAL.STAT_TYPE.OMNICORE_COLLECTION_ENGINE:
+			if stat.level == 0:
+				description = "Multiply the number of Energy you harvest by clicking by %s." % [stat.base_value]
+			else:
+				description = "Increase Energy you harvest by clicking from %s to %s." % [stat.value.toAA(), stat.value_increase_per_level]
+		GLOBAL.STAT_TYPE.SINGULARITY_INTAKE:
+			if stat.level == 0:
+				description = "Multiply the number of Energy you harvest by clicking by %s." % [stat.base_value]
+			else:
+				description = "Increase Energy you harvest by clicking from %s to %s." % [stat.value.toAA(), stat.value_increase_per_level]
+		GLOBAL.STAT_TYPE.PULSE_OF_THE_UNIVERSE:
+			if stat.level == 0:
+				description = "Multiply the number of Energy you harvest by clicking by %s." % [stat.base_value]
+			else:
+				description = "Increase Energy you harvest by clicking from %s to %s." % [stat.value.toAA(), stat.value_increase_per_level]
+		GLOBAL.STAT_TYPE.ENERGY_AMPLIFIER:
+			description = "Increase energy per second by %s%%" % [stat.value_increase_per_level]
+		GLOBAL.STAT_TYPE.ENERGY_CORE:
+			description = "Increase energy per second by %s%%" % [stat.value_increase_per_level]
+		GLOBAL.STAT_TYPE.HOLLOW_DRIVE:
+			description = "Increase energy per second by %s%%" % [stat.value_increase_per_level]
+		GLOBAL.STAT_TYPE.HARVESTER:
+			if stat.level == 0:
+				description = "Whenever the mech is not locked by boxes it will automatically absorb energy cells at a rate of %s per second" % [stat.base_value]
+			else:
+				description = "Increase the automatic energy cell absorption rate from %s to %s per second." % [stat.value.toAA(), stat.value_increase_per_level]
+		GLOBAL.STAT_TYPE.ENERGY_AUTO_CANNON:
+			description = "Automatically shoots at a rate of 1 shot per second"
+		GLOBAL.STAT_TYPE.PULSE_OVERDRIVE:
+			description = "Increase the damage delt by your main cannon by %s%%" % [stat.value_increase_per_level]
+		GLOBAL.STAT_TYPE.RIFT_AMPLIFIER:
+			if stat.level == 0:
+				description = "Multiply the damage dealt by your main cannon by %s" % [stat.base_value]
+			else:
+				description = "Increase the damage dealt by your main cannon from %s to %s." % [stat.value.toAA(), stat.value_increase_per_level]
+
+		GLOBAL.STAT_TYPE.ENERGY_CANNON_BLAST_SPLITTER:
+			description = "Projectile increase by %s"	 % [stat.value_increase_per_level]
+		GLOBAL.STAT_TYPE.VELOCITY_AMPLIFIER:
+			description = "Attack speed increase by %s%%" % stat.value_increase_per_level
+
+	
+	return description

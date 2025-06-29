@@ -29,5 +29,5 @@ func destroy_walls() -> void:
 func got_hit(damage : Big) -> void:
 	print(walls_health.toString() + " got hit with " + damage.toString())
 	walls_health = walls_health.minus(damage)
-	if walls_health.isLessThan(1):
+	if walls_health.isLessThanOrEqualTo(0):
 		destroy_walls()

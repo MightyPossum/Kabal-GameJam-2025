@@ -17,6 +17,8 @@ func test_stat_unlock():
 			var stat = stats[stat_type][tier]
 			if not stat.is_unlocked:
 				stat.check_unlock()
+				if stat.is_unlocked:
+					GLOBAL.UX.print_upgrade_icons()
 
 	await GLOBAL.GAME_SCENE.get_tree().create_timer(1.0).timeout
 	test_stat_unlock()

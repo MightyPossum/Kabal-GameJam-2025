@@ -71,7 +71,12 @@ func upgrade_level():
 
 	# Recalculate value and cost based on the new level
 	value = Big.times(base_value, Big.times(value_increase_per_level, level))
-	cost = Big.times(base_cost, Big.times(1 * cost_increase/100, level))
+	print(cost.toAA())
+	print(1 + cost_increase/100)
+	print(level)
+	print(Big.times(1 + cost_increase/100, level).toAA())
+	cost = Big.times(base_cost, Big.times(1 + cost_increase/100, level))
+	print(cost.toAA())
 
 	apply_bonus()
 
@@ -93,4 +98,6 @@ func apply_bonus():
 			GLOBAL.PROJECTILE_AMOUNT_DICTIONARY[self] = Big.new(Big.new(base_value).multiply(level))
 		GLOBAL.VALUE_APPLIED_TO.ATTACK_SPEED:
 			GLOBAL.ATTACK_SPEED_DICTIONARY[self] = Big.new(Big.new(base_value).multiply(level))
+		GLOBAL.VALUE_APPLIED_TO.MAIN_CANNON_DAMAGE:
+			GLOBAL.CURRENT_DAMAGE_CANNON_DICTIONARY[self] = Big.new(Big.new(base_value).multiply(level))
 		

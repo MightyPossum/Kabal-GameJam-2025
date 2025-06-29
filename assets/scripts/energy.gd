@@ -65,7 +65,6 @@ func _input_event(_viewport: Viewport, event: InputEvent, _shape_idx: int) -> vo
 			particles.global_position = global_position
 			particles.emitting = true
 			get_tree().get_root().add_child(particles)
-			print("ENERGY: " + str(GLOBAL.ENERGY))
 			queue_free()
 
 func _input(event: InputEvent) -> void:
@@ -81,6 +80,5 @@ func _input(event: InputEvent) -> void:
 				particles.emitting = true
 				get_tree().get_root().add_child(particles)
 				GLOBAL.ENERGY = GLOBAL.ENERGY.plus(GLOBAL.ENERGY_PER_CELL)
-				print("ENERGY: " + GLOBAL.ENERGY_STRING)
 				AudioManager.play_sound(preload("res://assets/audio/powerUp.wav"), 0.5)
 				queue_free()
