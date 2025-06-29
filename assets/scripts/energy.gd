@@ -64,6 +64,7 @@ func _input_event(_viewport: Viewport, event: InputEvent, _shape_idx: int) -> vo
 			var particles = particle_scene.instantiate()
 			particles.global_position = global_position
 			particles.emitting = true
+			GLOBAL.TOTAL_CLICKS = GLOBAL.TOTAL_CLICKS.plus(1)
 			get_tree().get_root().add_child(particles)
 			queue_free()
 
@@ -80,5 +81,6 @@ func _input(event: InputEvent) -> void:
 				particles.emitting = true
 				get_tree().get_root().add_child(particles)
 				GLOBAL.ENERGY = GLOBAL.ENERGY.plus(GLOBAL.ENERGY_PER_CELL)
+				GLOBAL.TOTAL_CLICKS = GLOBAL.TOTAL_CLICKS.plus(1)
 				AudioManager.play_sound(preload("res://assets/audio/powerUp.wav"), 0.5)
 				queue_free()

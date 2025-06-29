@@ -106,6 +106,7 @@ func purchase_button_pressed() -> void:
 
 
 func print_upgrade_icons() -> void:
+	print("Total Clicks: %s" % [GLOBAL.get_total_clicks().toAA()])
 	for child in %IconContainer.get_children():
 		child.queue_free() # Clear previous icons
 	for stat_type in GLOBAL.STATS.stats:
@@ -138,7 +139,7 @@ func get_stat_description(stat : Stat) -> String:
 			description = "Increase energy  from all sources by %s" % [stat.value_increase_per_level]
 		GLOBAL.STAT_TYPE.POWER_CELL:
 			description = "Increase the damage delt by your main cannon by %s" % [stat.value_increase_per_level]
-		GLOBAL.STAT_TYPE.TESSARACT_ENERGY_MATRIX:
+		GLOBAL.STAT_TYPE.TESSERACT_ENERGY_MATRIX:
 			if stat.level == 0:
 				description = "Multiply the number of Energy Per Second by %s." % [stat.base_value]
 			else:

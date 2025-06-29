@@ -46,22 +46,22 @@ func check_unlock():
 		GLOBAL.UNLOCK_METRIC.ALWAYS_UNLOCKED:
 			is_unlocked = true
 		GLOBAL.UNLOCK_METRIC.TOTAL_EPS:
-			if GLOBAL.get_total_eps().isGreaterThan(unlock_amount):
+			if GLOBAL.get_total_eps().isGreaterThanOrEqualTo(unlock_amount):
 				is_unlocked = true
 		GLOBAL.UNLOCK_METRIC.TOTAL_CLICKS:
-			if GLOBAL.get_total_clicks().isGreaterThan(unlock_amount):
+			if GLOBAL.get_total_clicks().isGreaterThanOrEqualTo(unlock_amount):
 				is_unlocked = true
 		GLOBAL.UNLOCK_METRIC.TOTAL_LIFETIME_COINS_GATHERED:
-			if GLOBAL.get_total_lifetime_coins_gathered().isGreaterThan(unlock_amount):
+			if GLOBAL.get_total_lifetime_coins_gathered().isGreaterThanOrEqualTo(unlock_amount):
 				is_unlocked = true
 		GLOBAL.UNLOCK_METRIC.ENERGY_INCREASE_T1:
-			if GLOBAL.get_energy_increase_t1().isGreaterThan(unlock_amount):
+			if GLOBAL.get_energy_increase_t1().isGreaterThanOrEqualTo(unlock_amount):
 				is_unlocked = true
 		GLOBAL.UNLOCK_METRIC.MANUAL_SHOTS:
-			if GLOBAL.get_manual_shots().isGreaterThan(unlock_amount):
+			if GLOBAL.get_manual_shots().isGreaterThanOrEqualTo(unlock_amount):
 				is_unlocked = true
 		GLOBAL.UNLOCK_METRIC.CURRENT_DAMAGE_CANNON:
-			if GLOBAL.get_current_damage_cannon().isGreaterThan(unlock_amount):
+			if GLOBAL.get_current_damage_cannon().isGreaterThanOrEqualTo(unlock_amount):
 				is_unlocked = true
 
 func upgrade_level():
