@@ -17,10 +17,6 @@ func test_stat_unlock():
 			var stat = stats[stat_type][tier]
 			if not stat.is_unlocked:
 				stat.check_unlock()
-			if stat.is_unlocked:
-				print("Stat unlocked: %s, Tier: %d" % [stat_type, tier])
-				return
-	print("No more stats to unlock")
 
 	await GLOBAL.GAME_SCENE.get_tree().create_timer(1.0).timeout
 	test_stat_unlock()

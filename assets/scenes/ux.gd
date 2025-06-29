@@ -27,7 +27,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if GLOBAL.ENERGY:
-		energy_label.text = str(GLOBAL.ENERGY)
+		energy_label.text = GLOBAL.ENERGY_STRING
 	else:
 		energy_label.text = "0"
 

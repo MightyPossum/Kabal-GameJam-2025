@@ -41,6 +41,7 @@ func _init(_type: int, _tier : int,  _base_value: float, _value_increase_per_lev
 func check_unlock():
 	if is_unlocked:
 		return
+
 	match unlock_metric:
 		GLOBAL.UNLOCK_METRIC.ALWAYS_UNLOCKED:
 			is_unlocked = true
@@ -76,19 +77,20 @@ func upgrade_level():
 
 func apply_bonus():
 	# Apply the bonus based on the value_applied_to and value_application_type
+	print("Applying bonus for stat: %s, Tier: %d, Value Applied To: %s" % [type, tier, value_applied_to])
 	match value_applied_to:
 		GLOBAL.VALUE_APPLIED_TO.ENERGY_PER_SECOND:
-			GLOBAL.ENERGY_PER_SECOND_DICTIONARY[self] = base_value*level
+			GLOBAL.ENERGY_PER_SECOND_DICTIONARY[self] = Big.new(Big.new(base_value).multiply(level))
 		GLOBAL.VALUE_APPLIED_TO.ENERGY_PER_CELL:
-			GLOBAL.ENERGY_PER_CELL_DICTIONARY[self] = base_value*level
+			GLOBAL.ENERGY_PER_CELL_DICTIONARY[self] = Big.new(Big.new(base_value).multiply(level))
 		GLOBAL.VALUE_APPLIED_TO.ENERGY_GLOBAL_INCREASE:
-			GLOBAL.ENERGY_GLOBAL_INCREASE_DICTIONARY[self] = base_value*level
+			GLOBAL.ENERGY_GLOBAL_INCREASE_DICTIONARY[self] = Big.new(Big.new(base_value).multiply(level))
 		GLOBAL.VALUE_APPLIED_TO.MECH_ABSORPTION:
-			GLOBAL.MECH_ABSORPTION_DICTIONARY[self] = base_value*level
+			GLOBAL.MECH_ABSORPTION_DICTIONARY[self] = Big.new(Big.new(base_value).multiply(level))
 		GLOBAL.VALUE_APPLIED_TO.CANNON_SHOOT_RATE:
-			GLOBAL.CANNON_SHOOT_RATE_DICTIONARY[self] = base_value*level
+			GLOBAL.CANNON_SHOOT_RATE_DICTIONARY[self] = Big.new(Big.new(base_value).multiply(level))
 		GLOBAL.VALUE_APPLIED_TO.PROJECTILE_AMOUNT:
-			GLOBAL.PROJECTILE_AMOUNT_DICTIONARY[self] = base_value*level
+			GLOBAL.PROJECTILE_AMOUNT_DICTIONARY[self] = Big.new(Big.new(base_value).multiply(level))
 		GLOBAL.VALUE_APPLIED_TO.ATTACK_SPEED:
-			GLOBAL.ATTACK_SPEED_DICTIONARY[self] = base_value*level
+			GLOBAL.ATTACK_SPEED_DICTIONARY[self] = Big.new(Big.new(base_value).multiply(level))
 		

@@ -28,13 +28,14 @@ enum STAT_TIER {
 	CORE = 1,
 	SURGE = 2,
 	ALPHA = 3,
-	NEXUS = 4,
+	WRAITHSTEEL = 4,
 	STELLAR = 5,
 	DARKRUNE = 6,
 	SOLARITE = 7,
 	DARKFLOW = 8,
-	STARCORE = 9,
-	BLIGHTSTEEL = 10,
+	VOIDCURRENT = 9,
+	STARCORE = 10,
+	BLIGHTSTEEL = 11,
 }
 
 enum UNLOCK_METRIC {
@@ -72,7 +73,11 @@ enum VALUE_APPLICATION_TYPE {
 var GAME_SCENE : Node = null
 var MECH : Node2D = null
 
-var ENERGY : int = 0
+var ENERGY : Big = Big.new(0)
+var ENERGY_STRING : String:
+	get:
+		return ENERGY.toAA()
+
 var STATS : Stats
 
 var TOTAL_CLICKS : Big = Big.new(0)
@@ -86,7 +91,7 @@ var WAVE_NUMBER : int = 1
 
 var ENERGY_PER_SECOND : Big = Big.new(0):
 	get:
-		return get_current_value(ENERGY_PER_SECOND_DICTIONARY)
+		return get_current_value(ENERGY_PER_SECOND_DICTIONARY, "energy_per_second")
 
 var ENERGY_PER_SECOND_DICTIONARY : Dictionary = {
 	VALUE_APPLICATION_TYPE.BASE: Big.new(0),
@@ -94,7 +99,7 @@ var ENERGY_PER_SECOND_DICTIONARY : Dictionary = {
 
 var ENERGY_PER_CELL : Big = Big.new(0):
 	get:
-		return get_current_value(ENERGY_PER_CELL_DICTIONARY)
+		return get_current_value(ENERGY_PER_CELL_DICTIONARY, "energy_per_cell")
 
 var ENERGY_PER_CELL_DICTIONARY : Dictionary = {
 	VALUE_APPLICATION_TYPE.BASE: Big.new(1),
@@ -102,7 +107,7 @@ var ENERGY_PER_CELL_DICTIONARY : Dictionary = {
 
 var ENERGY_GLOBAL_INCREASE : Big = Big.new(0):
 	get:
-		return get_current_value(ENERGY_GLOBAL_INCREASE_DICTIONARY)
+		return get_current_value(ENERGY_GLOBAL_INCREASE_DICTIONARY, "energy_global_increase")
 
 var ENERGY_GLOBAL_INCREASE_DICTIONARY : Dictionary = {
 	VALUE_APPLICATION_TYPE.BASE: Big.new(1),
@@ -110,7 +115,7 @@ var ENERGY_GLOBAL_INCREASE_DICTIONARY : Dictionary = {
 
 var MECH_ABSORPTION : Big = Big.new(0):
 	get:
-		return get_current_value(MECH_ABSORPTION_DICTIONARY)
+		return get_current_value(MECH_ABSORPTION_DICTIONARY, "mech_absorption")
 
 var MECH_ABSORPTION_DICTIONARY : Dictionary = {
 	VALUE_APPLICATION_TYPE.BASE: Big.new(0),
@@ -118,7 +123,7 @@ var MECH_ABSORPTION_DICTIONARY : Dictionary = {
 
 var CANNON_SHOOT_RATE : Big = Big.new(0):
 	get:
-		return get_current_value(CANNON_SHOOT_RATE_DICTIONARY)
+		return get_current_value(CANNON_SHOOT_RATE_DICTIONARY, "cannon_shoot_rate")
 
 var CANNON_SHOOT_RATE_DICTIONARY : Dictionary = {
 	VALUE_APPLICATION_TYPE.BASE: Big.new(1),
@@ -126,7 +131,7 @@ var CANNON_SHOOT_RATE_DICTIONARY : Dictionary = {
 
 var PROJECTILE_AMOUNT : Big = Big.new(1):
 	get:
-		return get_current_value(PROJECTILE_AMOUNT_DICTIONARY)
+		return get_current_value(PROJECTILE_AMOUNT_DICTIONARY, "projectile_amount")
 
 var PROJECTILE_AMOUNT_DICTIONARY : Dictionary = {
 	VALUE_APPLICATION_TYPE.BASE: Big.new(1),
@@ -134,7 +139,7 @@ var PROJECTILE_AMOUNT_DICTIONARY : Dictionary = {
 
 var ATTACK_SPEED : Big = Big.new(1):
 	get:
-		return get_current_value(ATTACK_SPEED_DICTIONARY)
+		return get_current_value(ATTACK_SPEED_DICTIONARY, "attack_speed")
 
 var ATTACK_SPEED_DICTIONARY : Dictionary = {
 	VALUE_APPLICATION_TYPE.BASE: Big.new(1),
@@ -159,20 +164,27 @@ func get_current_damage_cannon() -> Big:
 	return CURRENT_DAMAGE_CANNON
 
 
-func get_current_value(value_dictionary : Dictionary) -> Big:
+func get_current_value(value_dictionary : Dictionary, _stat_name : String) -> Big:
 	var total_value : Big = Big.new(0)
 	var addition_value : Big = Big.new(0)
 	var multiplication_value : Big = Big.new(1)
 	var percentage_value : Big = Big.new(0)
+	
 	for stat in value_dictionary:
-		if stat == VALUE_APPLICATION_TYPE.BASE:
+
+		if typeof(stat) == TYPE_INT:
 			total_value = total_value.plus(value_dictionary[stat])
 		elif stat.value_application_type == VALUE_APPLICATION_TYPE.ADDITION:
-			addition_value = addition_value.plus(stat.value)
+			addition_value = addition_value.plus(value_dictionary[stat])
 		elif stat.value_application_type == VALUE_APPLICATION_TYPE.MULTIPLICATION:
 			if stat.value_type == VALUE_TYPE.PERCENTAGE:
-				multiplication_value = multiplication_value.plus(Big.new(1).plus(stat.value/100))
+				multiplication_value = multiplication_value.plus(Big.new(1).plus(value_dictionary[stat]/100))
 			else:
-				multiplication_value = multiplication_value.plus(stat.value)
+				multiplication_value = multiplication_value.plus(value_dictionary[stat])
 
-	return total_value.plus(addition_value).multiply(multiplication_value).multiply(Big.new(1).plus(percentage_value))
+	if multiplication_value.isGreaterThan(1):
+		multiplication_value = multiplication_value.minus(1)  # Adjust for base value of 1
+
+	total_value = total_value.plus(addition_value).multiply(multiplication_value).multiply(Big.new(1).plus(percentage_value))
+
+	return total_value

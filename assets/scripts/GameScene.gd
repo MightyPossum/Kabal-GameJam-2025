@@ -36,13 +36,33 @@ func _ready():
 	GLOBAL.GAME_SCENE = self # Set the global game scene variable
 	mech = $Mech
 	mech.position = get_viewport_rect().size / 2
-	await spawn_waves()
+	spawn_waves()
+
+	GLOBAL.STATS.test_stat_unlock() # Start testing stat unlocks
+
+	
+
+	#print("Initializing energy per second: %s" % GLOBAL.ENERGY_PER_SECOND.toString())
+	#GLOBAL.STATS.stats.get(GLOBAL.STAT_TYPE.ENERGY_CONVERTER).get(GLOBAL.STAT_TIER.CORE).upgrade_level()
+	#print("Energy per second after first CORE upgrade: %s" % GLOBAL.ENERGY_PER_SECOND.toString())
+	#GLOBAL.STATS.stats.get(GLOBAL.STAT_TYPE.ENERGY_CONVERTER).get(GLOBAL.STAT_TIER.ALPHA).upgrade_level()
+	#print("Energy per second after first ALPHA upgrade: %s" % GLOBAL.ENERGY_PER_SECOND.toString())
+	#GLOBAL.STATS.stats.get(GLOBAL.STAT_TYPE.ENERGY_CONVERTER).get(GLOBAL.STAT_TIER.ALPHA).upgrade_level()
+	#print("Energy per second after second ALPHA upgrade: %s" % GLOBAL.ENERGY_PER_SECOND.toString())
+	#GLOBAL.STATS.stats.get(GLOBAL.STAT_TYPE.ENERGY_CONVERTER).get(GLOBAL.STAT_TIER.CORE).upgrade_level()
+	#print("Energy per second after second CORE upgrade: %s" % GLOBAL.ENERGY_PER_SECOND.toString())
+
+	
+	#GLOBAL.STATS.stats.get(GLOBAL.STAT_TYPE.TESSARACT_ENERGY_MATRIX).get(GLOBAL.STAT_TIER.CORE).upgrade_level()
+	
+	#print("Energy per second after Global upgrade: %s" % GLOBAL.ENERGY_PER_SECOND.toString())
+
 
 func _process(delta: float) -> void:
 	timer += delta
 	if timer >= 1.0:
 		timer = 0.0
-		GLOBAL.ENERGY = GLOBAL.ENERGY + GLOBAL.ENERGY_PER_SECOND
+		GLOBAL.ENERGY = GLOBAL.ENERGY.plus(GLOBAL.ENERGY_PER_SECOND)
 
 func get_wall_health_for_wave(wave: int) -> Big:
 	# Example idle game scaling: base * (1.15 ^ (wave-1))
@@ -73,6 +93,7 @@ func spawn_waves() -> void:
 
 func initialize_stats() -> bool:
 	GLOBAL.STATS = Stats.new()
+	print("Initializing stats...")
 	var stat : Stat
 	# Energy Converter Upgrades
 	stat = Stat.new(GLOBAL.STAT_TYPE.ENERGY_CONVERTER, 1, 1, 1, 100, Big.new(5), 7, GLOBAL.UNLOCK_METRIC.ALWAYS_UNLOCKED, Big.new(0), GLOBAL.VALUE_APPLIED_TO.ENERGY_PER_SECOND, GLOBAL.VALUE_APPLICATION_TYPE.ADDITION, GLOBAL.VALUE_TYPE.NUMBER)

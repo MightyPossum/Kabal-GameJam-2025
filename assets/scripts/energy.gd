@@ -53,11 +53,11 @@ func _process(delta: float) -> void:
 		velocity.y = -velocity.y
 		global_position.y = clamp(global_position.y, half_size, screen_size.y - half_size)
 
-func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void:
+func _input_event(_viewport: Viewport, event: InputEvent, _shape_idx: int) -> void:
 	if event is InputEventMouseButton:
 		var mouse_event = event as InputEventMouseButton
 		if mouse_event.pressed and mouse_event.button_index == MOUSE_BUTTON_LEFT:
-			GLOBAL.ENERGY += GLOBAL.ENERGY_PER_CELL
+			GLOBAL.ENERGY = GLOBAL.ENERGY.plus(GLOBAL.ENERGY_PER_CELL)
 			var particles = particle_scene.instantiate()
 			particles.global_position = global_position
 			particles.emitting = true
@@ -77,7 +77,7 @@ func _input(event: InputEvent) -> void:
 				particles.global_position = global_position
 				particles.emitting = true
 				get_tree().get_root().add_child(particles)
-				GLOBAL.ENERGY += GLOBAL.ENERGY_PER_CELL
-				print("ENERGY: " + str(GLOBAL.ENERGY))
+				GLOBAL.ENERGY = GLOBAL.ENERGY.plus(GLOBAL.ENERGY_PER_CELL)
+				print("ENERGY: " + GLOBAL.ENERGY_STRING)
 				AudioManager.play_sound(preload("res://assets/audio/powerUp.wav"), 0.5)
 				queue_free()
