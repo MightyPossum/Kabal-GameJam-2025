@@ -93,7 +93,7 @@ func apply_bonus():
 		GLOBAL.VALUE_APPLIED_TO.MECH_ABSORPTION:
 			GLOBAL.MECH_ABSORPTION_DICTIONARY[self] = Big.new(Big.new(base_value).multiply(level))
 		GLOBAL.VALUE_APPLIED_TO.CANNON_SHOOT_RATE:
-			GLOBAL.CANNON_SHOOT_RATE_DICTIONARY[self] = Big.new(Big.new(base_value).multiply(level))
+			GLOBAL.CANNON_SHOOT_RATE_DICTIONARY[self] = Big.new(1)
 		GLOBAL.VALUE_APPLIED_TO.PROJECTILE_AMOUNT:
 			GLOBAL.PROJECTILE_AMOUNT_DICTIONARY[self] = Big.new(Big.new(base_value).multiply(level))
 		GLOBAL.VALUE_APPLIED_TO.ATTACK_SPEED:
@@ -101,3 +101,5 @@ func apply_bonus():
 		GLOBAL.VALUE_APPLIED_TO.MAIN_CANNON_DAMAGE:
 			GLOBAL.CURRENT_DAMAGE_CANNON_DICTIONARY[self] = Big.new(Big.new(base_value).multiply(level))
 		
+func is_maxed_out() -> bool:
+	return level >= max_level

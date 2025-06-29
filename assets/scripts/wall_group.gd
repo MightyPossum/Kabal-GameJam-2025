@@ -27,9 +27,7 @@ func destroy_walls() -> void:
 		wall.queue_free()
 
 func got_hit(damage : Big) -> void:
-	print(walls_health.toString() + " got hit with " + damage.toString())
+
 	walls_health = walls_health.minus(damage)
-	print(walls_health.toString() + " remaining health")
-	print("walls health is less than or equal to 0: " + str(walls_health.isLessThanOrEqualTo(Big.new(0))))
 	if walls_health.isLessThanOrEqualTo(0):
 		destroy_walls()

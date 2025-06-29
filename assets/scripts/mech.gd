@@ -14,6 +14,9 @@ var origin_position: Vector2
 var float_direction: Vector2
 var time_passed: float = 0.0
 
+var auto_cannon_enabled: bool = false  # Flag to control auto cannon firing
+var auto_cannon_initialized: bool = false  # Flag to ensure cannon is initialized only once
+
 func _ready():
 	# Enable input processing for mouse clicks
 	set_process_input(true)
@@ -32,9 +35,6 @@ func _ready():
 	# Set up absorption timer
 	_setup_absorption_timer()
 	
-	# Set up auto cannon timer
-	_setup_cannon_timer()
-
 func _process(delta: float) -> void:
 	time_passed += delta
 	
@@ -57,10 +57,16 @@ func _process(delta: float) -> void:
 			absorption_timer.wait_time = new_interval
 	
 	# Update cannon timer interval if it exists and CANNON_SHOOT_RATE has changed
-	if cannon_timer:
-		var new_cannon_interval = _calculate_cannon_interval()
-		if abs(cannon_timer.wait_time - new_cannon_interval) > 0.1:  # Only update if significant change
-			cannon_timer.wait_time = new_cannon_interval
+	#if cannon_timer:
+	#	var new_cannon_interval : float = _calculate_cannon_interval()
+	#	if abs(cannon_timer.wait_time - new_cannon_interval) > 0.1:  # Only update if significant change
+	#		cannon_timer.wait_time = new_cannon_interval
+	if not auto_cannon_enabled:
+		if GLOBAL.CANNON_SHOOT_RATE.isGreaterThan(0):
+			# Enable auto cannon firing if the shoot rate is greater than 0
+			auto_cannon_enabled = true
+
+
 
 func _spawn_projectile():
 	if projectile_scene:
@@ -92,6 +98,7 @@ func _spawn_projectile():
 
 func _fire_single_projectile():
 	if projectile_scene:
+		GLOBAL.MANUAL_SHOTS = GLOBAL.MANUAL_SHOTS.plus(1)
 		var projectile = projectile_scene.instantiate()
 		
 		# Set spawn position (relative to mech position)
@@ -110,6 +117,11 @@ func _input(event: InputEvent) -> void:
 			var mech_rect = Rect2(global_position - Vector2(32, 32), Vector2(64, 64))  # Adjust size as needed
 			if mech_rect.has_point(mouse_pos):
 				GLOBAL.MANUAL_SHOTS.plus(1)
+				if not auto_cannon_initialized:
+					# Initialize the auto cannon shooting if not already done
+					auto_cannon_initialized = true
+					shoot_autocannon()  # Start the auto cannon shooting process
+
 				_spawn_projectile()
 
 func increase_cannon_damage(amount: Big):
@@ -124,29 +136,31 @@ func _setup_absorption_timer():
 	absorption_timer.autostart = true
 	add_child(absorption_timer)
 
-func _setup_cannon_timer():
-	cannon_timer = Timer.new()
-	cannon_timer.wait_time = _calculate_cannon_interval()
-	cannon_timer.timeout.connect(_on_cannon_timer_timeout)
-	cannon_timer.autostart = true
-	add_child(cannon_timer)
+func shoot_autocannon():
+	var cannon_interval : float = _calculate_cannon_interval()
+	print("Cannon interval: " + str(cannon_interval))
+	await get_tree().create_timer(cannon_interval).timeout
+	if auto_cannon_enabled:
+		_spawn_projectile()
+	shoot_autocannon() # Recursively call to keep shooting at intervals
 
 func _calculate_cannon_interval() -> float:
 	# CANNON_SHOOT_RATE is the timer interval in seconds
-	var cannon_rate = GLOBAL.CANNON_SHOOT_RATE.mantissa * GLOBAL.ATTACK_SPEED.exponent
+	
+	var attack_speed_stat : Stat = GLOBAL.STATS.stats[GLOBAL.STAT_TYPE.VELOCITY_AMPLIFIER][GLOBAL.STAT_TIER.CORE]
+	var attack_speed : float
+	if attack_speed_stat.level == 0:
+		attack_speed = 1
+	else:
+		attack_speed = 1*pow(1-(attack_speed_stat.value_increase_per_level/100), attack_speed_stat.level)
+		
+	var cannon_rate : Big = GLOBAL.CANNON_SHOOT_RATE.multiply(attack_speed)
 	
 	# If cannon shoot rate is 0 or very low, set a very long interval (effectively disabled)
-	if cannon_rate <= 0:
-		return 999999.0  # Very long interval when cannon shoot rate is 0
+	if cannon_rate.isLessThanOrEqualTo(0):
+		return 1.0
 	
-	return cannon_rate
-
-func _on_cannon_timer_timeout():
-	# Auto-shoot when timer triggers
-	_spawn_projectile()
-	
-	# Update timer interval based on current cannon shoot rate
-	cannon_timer.wait_time = _calculate_cannon_interval()
+	return cannon_rate.toFloat()	# Convert Big to float for timer interval
 
 func _calculate_absorption_interval() -> float:
 	# MECH_ABSORPTION is already the timer interval in seconds

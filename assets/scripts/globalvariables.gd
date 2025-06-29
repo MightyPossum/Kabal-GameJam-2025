@@ -72,7 +72,7 @@ var GAME_SCENE : Node = null
 var UX : Control = null
 var MECH : Node2D = null
 
-var ENERGY : Big = Big.new(0)
+var ENERGY : Big = Big.new(1,1316561)
 var ENERGY_STRING : String:
 	get:
 		return ENERGY.toAA()
@@ -85,7 +85,7 @@ var TOTAL_EPS : Big = Big.new(0)
 var TOTAL_LIFETIME_COINS_GATHERED : Big = Big.new(0)
 var MANUAL_SHOTS : Big = Big.new(0)
 
-var WAVE_TIME : float = 10.0
+var WAVE_TIME : float = 0.50
 var WAVE_NUMBER : int = 1
 
 var ENERGY_PER_SECOND : Big = Big.new(0):
@@ -125,7 +125,7 @@ var CANNON_SHOOT_RATE : Big = Big.new(0):
 		return get_current_value(CANNON_SHOOT_RATE_DICTIONARY, "cannon_shoot_rate")
 
 var CANNON_SHOOT_RATE_DICTIONARY : Dictionary = {
-	VALUE_APPLICATION_TYPE.BASE: Big.new(1),
+	VALUE_APPLICATION_TYPE.BASE: Big.new(0),
 }
 
 var PROJECTILE_AMOUNT : Big = Big.new(1):
@@ -241,7 +241,7 @@ func get_current_value(value_dictionary : Dictionary, _stat_name : String) -> Bi
 				multiplication_value = multiplication_value.plus(value_dictionary[stat])
 
 	if multiplication_value.isGreaterThan(1):
-		multiplication_value = multiplication_value.minus(1)  # Adjust for base value of 1
+		multiplication_value = multiplication_value.minus(1)  # Adjust for base value of 1	
 
 	total_value = total_value.plus(addition_value).multiply(multiplication_value).multiply(Big.new(1).plus(percentage_value))
 

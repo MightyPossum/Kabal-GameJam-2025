@@ -113,7 +113,7 @@ func print_upgrade_icons() -> void:
 		for stat_tier in GLOBAL.STATS.stats[stat_type]:
 			var stat = GLOBAL.STATS.stats[stat_type][stat_tier]
 
-			if stat.is_unlocked:
+			if stat.is_unlocked and not stat.is_maxed_out():
 				var icon : Control = load("uid://v8ap3ght2h0m").instantiate()
 				icon.image_string = "res://assets/art/ux/upgrade_icons/%s_%s.png" % [GLOBAL.STAT_TYPE_NAMES[stat.type], stat.tier] 
 				icon.stat = stat
