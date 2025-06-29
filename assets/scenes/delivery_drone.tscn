@@ -1,8 +1,18 @@
-[gd_scene load_steps=2 format=3 uid="uid://bpgbypoyt2jfn"]
+[gd_scene load_steps=3 format=3 uid="uid://bpgbypoyt2jfn"]
 
 [ext_resource type="Texture2D" uid="uid://c1c0rte840ibs" path="res://assets/art/wall_drone.png" id="1_m070p"]
+[ext_resource type="PackedScene" uid="uid://br4x64jmickd2" path="res://assets/scenes/particles/wall_drone_particles.tscn" id="2_0ld0f"]
 
 [node name="DeliveryDrone" type="Node2D"]
 
 [node name="WallDrone" type="Sprite2D" parent="."]
 texture = ExtResource("1_m070p")
+
+[node name="WallDroneParticles" parent="." instance=ExtResource("2_0ld0f")]
+position = Vector2(14, 0)
+
+[node name="WallDroneParticles3" parent="." instance=ExtResource("2_0ld0f")]
+position = Vector2(7, -12)
+
+[node name="WallDroneParticles2" parent="." instance=ExtResource("2_0ld0f")]
+position = Vector2(7, 12)
