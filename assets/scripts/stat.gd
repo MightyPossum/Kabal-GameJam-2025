@@ -34,6 +34,9 @@ func _init(_type: int, _tier : int,  _base_value: float, _value_increase_per_lev
 
 	level = 0
 	value = Big.new(base_value)
+	if _type == GLOBAL.STAT_TYPE.HARVESTER:
+		print(base_value)
+		print(value.toAA())
 	cost = Big.new(base_cost)
 
 	check_unlock()
@@ -70,13 +73,15 @@ func upgrade_level():
 	level += 1
 
 	# Recalculate value and cost based on the new level
-	value = Big.times(base_value, Big.times(value_increase_per_level, level))
-	print(cost.toAA())
-	print(1 + cost_increase/100)
-	print(level)
-	print(Big.times(1 + cost_increase/100, level).toAA())
+	if value_type == GLOBAL.VALUE_TYPE.PERCENTAGE:
+		value = Big.new(base_value).multiply(pow(1-value_increase_per_level, level))
+	else:
+		# For absolute values, just multiply the increase per level by the level
+		value = Big.times(base_value, Big.times(value_increase_per_level, level))
+	print(value.toAA())
+
 	cost = Big.times(base_cost, Big.times(1 + cost_increase/100, level))
-	print(cost.toAA())
+
 
 	apply_bonus()
 
@@ -85,21 +90,25 @@ func apply_bonus():
 	print("Applying bonus for stat: %s, Tier: %d, Value Applied To: %s" % [type, tier, value_applied_to])
 	match value_applied_to:
 		GLOBAL.VALUE_APPLIED_TO.ENERGY_PER_SECOND:
-			GLOBAL.ENERGY_PER_SECOND_DICTIONARY[self] = Big.new(Big.new(base_value).multiply(level))
+			GLOBAL.ENERGY_PER_SECOND_DICTIONARY[self] = value
 		GLOBAL.VALUE_APPLIED_TO.ENERGY_PER_CELL:
-			GLOBAL.ENERGY_PER_CELL_DICTIONARY[self] = Big.new(Big.new(base_value).multiply(level))
+			GLOBAL.ENERGY_PER_CELL_DICTIONARY[self] = value
 		GLOBAL.VALUE_APPLIED_TO.ENERGY_GLOBAL_INCREASE:
-			GLOBAL.ENERGY_GLOBAL_INCREASE_DICTIONARY[self] = Big.new(Big.new(base_value).multiply(level))
+			GLOBAL.ENERGY_GLOBAL_INCREASE_DICTIONARY[self] = value
 		GLOBAL.VALUE_APPLIED_TO.MECH_ABSORPTION:
-			GLOBAL.MECH_ABSORPTION_DICTIONARY[self] = Big.new(Big.new(base_value).multiply(level))
+			GLOBAL.MECH_ABSORPTION_DICTIONARY[self] = value
+			if level == 1:
+				# Start the harvester functionality if this is the first level
+				GLOBAL.MECH.harvester_enabled = true
+
 		GLOBAL.VALUE_APPLIED_TO.CANNON_SHOOT_RATE:
 			GLOBAL.CANNON_SHOOT_RATE_DICTIONARY[self] = Big.new(1)
 		GLOBAL.VALUE_APPLIED_TO.PROJECTILE_AMOUNT:
-			GLOBAL.PROJECTILE_AMOUNT_DICTIONARY[self] = Big.new(Big.new(base_value).multiply(level))
+			GLOBAL.PROJECTILE_AMOUNT_DICTIONARY[self] = value
 		GLOBAL.VALUE_APPLIED_TO.ATTACK_SPEED:
-			GLOBAL.ATTACK_SPEED_DICTIONARY[self] = Big.new(Big.new(base_value).multiply(level))
+			GLOBAL.ATTACK_SPEED_DICTIONARY[self] = value
 		GLOBAL.VALUE_APPLIED_TO.MAIN_CANNON_DAMAGE:
-			GLOBAL.CURRENT_DAMAGE_CANNON_DICTIONARY[self] = Big.new(Big.new(base_value).multiply(level))
+			GLOBAL.CURRENT_DAMAGE_CANNON_DICTIONARY[self] = value
 		
 func is_maxed_out() -> bool:
 	return level >= max_level

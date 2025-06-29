@@ -19,6 +19,9 @@ var locked_time_offset: float = 0.0
 var auto_cannon_enabled: bool = false  # Flag to control auto cannon firing
 var auto_cannon_initialized: bool = false  # Flag to ensure cannon is initialized only once
 
+var harvester_enabled : bool = false	# Flag to control harvester functionality
+var harvester_initialized : bool = false  # Flag to ensure harvester is initialized only once
+
 func _ready():
 	# Enable input processing for mouse clicks
 	set_process_input(true)
@@ -33,9 +36,6 @@ func _ready():
 	# If no projectile scene is assigned, try to load it
 	if not projectile_scene:
 		projectile_scene = preload("res://assets/scenes/basic_projectile.tscn")
-	
-	# Set up absorption timer
-	_setup_absorption_timer()
 	
 func _process(delta: float) -> void:
 	# Only increment time when not locked
@@ -132,6 +132,9 @@ func _input(event: InputEvent) -> void:
 					# Initialize the auto cannon shooting if not already done
 					auto_cannon_initialized = true
 					shoot_autocannon()  # Start the auto cannon shooting process
+				if not harvester_initialized:
+					harvester_initialized = true
+					trigger_harvester() # Start the harvester functionality
 
 				_spawn_projectile()
 
@@ -140,16 +143,8 @@ func increase_cannon_damage(amount: Big):
 		GLOBAL.CURRENT_DAMAGE_CANNON = Big.new(0)
 	GLOBAL.CURRENT_DAMAGE_CANNON.plusEquals(amount)
 
-func _setup_absorption_timer():
-	absorption_timer = Timer.new()
-	absorption_timer.wait_time = _calculate_absorption_interval()
-	absorption_timer.timeout.connect(_on_absorption_timer_timeout)
-	absorption_timer.autostart = true
-	add_child(absorption_timer)
-
 func shoot_autocannon():
 	var cannon_interval : float = _calculate_cannon_interval()
-	print("Cannon interval: " + str(cannon_interval))
 	await get_tree().create_timer(cannon_interval).timeout
 	if auto_cannon_enabled:
 		_spawn_projectile()
@@ -176,12 +171,19 @@ func _calculate_cannon_interval() -> float:
 func _calculate_absorption_interval() -> float:
 	# MECH_ABSORPTION is already the timer interval in seconds
 	var absorption_value = GLOBAL.MECH_ABSORPTION.toFloat()
-	
+	print("Absorption Value",absorption_value)
 	# If absorption is 0 or very low, set a very long interval (effectively disabled)
 	if absorption_value <= 0:
-		return 999999.0  # Very long interval when absorption is 0
+		return 1  # Very long interval when absorption is 0
 	
 	return absorption_value
+
+func trigger_harvester():
+	var harvester_interval : float = _calculate_absorption_interval()
+	await get_tree().create_timer(harvester_interval).timeout
+	if harvester_enabled:
+		_on_absorption_timer_timeout()
+	trigger_harvester() # Recursively call to keep harvesting at intervals
 
 func _on_absorption_timer_timeout():
 	# Get all energy objects in the "energy" group
@@ -192,9 +194,6 @@ func _on_absorption_timer_timeout():
 		var random_energy = energy_nodes[randi() % energy_nodes.size()]
 		if not GLOBAL.LOCKED:
 			_absorb_energy(random_energy)
-	
-	# Update timer interval based on current absorption value
-	absorption_timer.wait_time = _calculate_absorption_interval()
 
 func _absorb_energy(energy_node: Node2D):
 	# Create a tween to move the energy to the mech

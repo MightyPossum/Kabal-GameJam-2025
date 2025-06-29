@@ -157,32 +157,32 @@ func get_stat_description(stat : Stat) -> String:
 			if stat.level == 0:
 				description = "Multiply the number of Energy Per Second by %s." % [stat.base_value]
 			else:
-				description = "Increase Energy Per Second multiplication from %s to %s." % [stat.value.toAA(), stat.value_increase_per_level]
+				description = "Increase Energy Per Second multiplication by %s." % [stat.value_increase_per_level]
 		GLOBAL.STAT_TYPE.ECHO_OF_THE_COLLAPSING_CORE:
 			if stat.level == 0:
 				description = "Multiply the number of Energy Per Second by %s." % [stat.base_value]
 			else:
-				description = "Increase Energy Per Second multiplication from %s to %s." % [stat.value.toAA(), stat.value_increase_per_level]
+				description = "Increase Energy Per Second multiplication by %s." % [stat.value_increase_per_level]
 		GLOBAL.STAT_TYPE.FRAGMENT_OF_THE_FIRST_SPARK:
 			if stat.level == 0:
 				description = "Multiply the number of Energy Per Second by %s." % [stat.base_value]
 			else:
-				description = "Increase Energy Per Second multiplication from %s to %s." % [stat.value.toAA(), stat.value_increase_per_level]
+				description = "Increase Energy Per Second multiplication by %s." % [stat.value_increase_per_level]
 		GLOBAL.STAT_TYPE.OMNICORE_COLLECTION_ENGINE:
 			if stat.level == 0:
 				description = "Multiply the number of Energy you harvest by clicking by %s." % [stat.base_value]
 			else:
-				description = "Increase Energy you harvest by clicking from %s to %s." % [stat.value.toAA(), stat.value_increase_per_level]
+				description = "Increase Energy you harvest by clicking by %s." % [stat.value_increase_per_level]
 		GLOBAL.STAT_TYPE.SINGULARITY_INTAKE:
 			if stat.level == 0:
 				description = "Multiply the number of Energy you harvest by clicking by %s." % [stat.base_value]
 			else:
-				description = "Increase Energy you harvest by clicking from %s to %s." % [stat.value.toAA(), stat.value_increase_per_level]
+				description = "Increase Energy you harvest by clicking by %s." % [stat.value_increase_per_level]
 		GLOBAL.STAT_TYPE.PULSE_OF_THE_UNIVERSE:
 			if stat.level == 0:
 				description = "Multiply the number of Energy you harvest by clicking by %s." % [stat.base_value]
 			else:
-				description = "Increase Energy you harvest by clicking from %s to %s." % [stat.value.toAA(), stat.value_increase_per_level]
+				description = "Increase Energy you harvest by clicking by %s." % [stat.value_increase_per_level]
 		GLOBAL.STAT_TYPE.ENERGY_AMPLIFIER:
 			description = "Increase energy per second by %s%%" % [stat.value_increase_per_level]
 		GLOBAL.STAT_TYPE.ENERGY_CORE:
@@ -193,7 +193,7 @@ func get_stat_description(stat : Stat) -> String:
 			if stat.level == 0:
 				description = "Whenever the mech is not locked by boxes it will automatically absorb energy cells at a rate of %s per second" % [stat.base_value]
 			else:
-				description = "Increase the automatic energy cell absorption rate from %s to %s per second." % [stat.value.toAA(), stat.value_increase_per_level]
+				description = "Increase the automatic energy cell absorption rate by %s%% per second." % [stat.value_increase_per_level/100]
 		GLOBAL.STAT_TYPE.ENERGY_AUTO_CANNON:
 			description = "Automatically shoots at a rate of 1 shot per second"
 		GLOBAL.STAT_TYPE.PULSE_OVERDRIVE:
@@ -202,7 +202,7 @@ func get_stat_description(stat : Stat) -> String:
 			if stat.level == 0:
 				description = "Multiply the damage dealt by your main cannon by %s" % [stat.base_value]
 			else:
-				description = "Increase the damage dealt by your main cannon from %s to %s." % [stat.value.toAA(), stat.value_increase_per_level]
+				description = "Increase the damage dealt by your main cannon by %s." % [stat.value_increase_per_level]
 
 		GLOBAL.STAT_TYPE.ENERGY_CANNON_BLAST_SPLITTER:
 			description = "Projectile increase by %s"	 % [stat.value_increase_per_level]
