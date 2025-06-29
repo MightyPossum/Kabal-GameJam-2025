@@ -1,0 +1,15 @@
+[gd_scene load_steps=6 format=3 uid="uid://dcqj748ghel6s"]
+
+[ext_resource type="Script" uid="uid://cucrsplt7k587" path="res://assets/scripts/planet.gd" id="1_c14wq"]
+[ext_resource type="Texture2D" uid="uid://1ts2ot77vugk" path="res://assets/art/planet_2.png" id="2_6176k"]
+[ext_resource type="Texture2D" uid="uid://ddc6ma0a7u3im" path="res://assets/art/planet_3.png" id="3_a33ru"]
+[ext_resource type="Texture2D" uid="uid://nrl2udm7oya1" path="res://assets/art/planet_1.png" id="4_o7y73"]
+[ext_resource type="PackedScene" uid="uid://sse26sfc034a" path="res://assets/scenes/particles/energyparticles.tscn" id="5_6176k"]
+
+[node name="Planet" type="Node2D" node_paths=PackedStringArray("sprite")]
+script = ExtResource("1_c14wq")
+sprites = Array[CompressedTexture2D]([ExtResource("2_6176k"), ExtResource("3_a33ru"), ExtResource("4_o7y73")])
+particle_scene = ExtResource("5_6176k")
+sprite = NodePath("Sprite2D")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]

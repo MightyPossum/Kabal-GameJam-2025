@@ -2,6 +2,7 @@ extends Node2D
 
 # Preload wall scene
 const WALL_SCENE := preload("res://assets/scenes/wall.tscn")
+@export var planet : PackedScene
 
 # Distance from center to spawn walls
 const WALL_DISTANCE := 400
@@ -13,6 +14,7 @@ var wall_health_base : Big = Big.new(6)
 var wall_health : Big = wall_health_base
 var wave_number : int = 1
 var timer : float = 0.0
+var previous_locked_state : bool = false
 
 # Directions: (name, offset, vertical, vertical_angle, flipped)
 var directions = [
@@ -45,6 +47,32 @@ func _process(delta: float) -> void:
 	if timer >= 1.0:
 		timer = 0.0
 		GLOBAL.ENERGY = GLOBAL.ENERGY.plus(GLOBAL.ENERGY_PER_SECOND)
+	
+	# Check for GLOBAL.LOCKED state change
+	if previous_locked_state == true and GLOBAL.LOCKED == false:
+		spawn_planet_at_random_position()
+	
+	# Update previous state
+	previous_locked_state = GLOBAL.LOCKED
+
+func spawn_planet_at_random_position():
+	if planet:
+		var new_planet = planet.instantiate()
+		
+		# Get viewport size for random positioning
+		var viewport_size = get_viewport_rect().size
+		
+		# Generate random position with some margin from edges
+		var margin = 35  # Pixels from edge
+		var random_x = randf_range(margin, viewport_size.x - margin)
+		var random_y = randf_range(margin, viewport_size.y - margin)
+		
+		new_planet.global_position = Vector2(random_x, random_y)
+		add_child(new_planet)
+		
+		print("Planet spawned at position: ", new_planet.global_position)
+	else:
+		print("Warning: No planet scene assigned!")
 
 func get_wall_health_for_wave(wave: int) -> Big:
 	# Example idle game scaling: base * (1.15 ^ (wave-1))
