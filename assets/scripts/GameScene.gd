@@ -43,7 +43,7 @@ func _ready():
 	
 
 	#print("Initializing energy per second: %s" % GLOBAL.ENERGY_PER_SECOND.toString())
-	#GLOBAL.STATS.stats.get(GLOBAL.STAT_TYPE.ENERGY_CONVERTER).get(GLOBAL.STAT_TIER.CORE).upgrade_level()
+	#GLOBAL.STATS.stats.get(GLOBAL.STAT_TYPE.ENERGY_AUTO_CANNON).get(GLOBAL.STAT_TIER.CORE).upgrade_level()
 	#print("Energy per second after first CORE upgrade: %s" % GLOBAL.ENERGY_PER_SECOND.toString())
 	#GLOBAL.STATS.stats.get(GLOBAL.STAT_TYPE.ENERGY_CONVERTER).get(GLOBAL.STAT_TIER.ALPHA).upgrade_level()
 	#print("Energy per second after first ALPHA upgrade: %s" % GLOBAL.ENERGY_PER_SECOND.toString())

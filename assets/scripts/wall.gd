@@ -16,6 +16,7 @@ func set_rotation_meta(vertical: bool, angle: float = 90.0, flipped: bool = fals
 	if flipped:
 		rotation_angle += 180.0
 	$Sprite2D.rotation = deg_to_rad(rotation_angle)
+	$Sprite2D2.rotation = deg_to_rad(rotation_angle)
 	$Area2D.rotation = deg_to_rad(rotation_angle)
 
 func apply_meta():
@@ -39,7 +40,10 @@ func _process(delta: float) -> void:
 	if target_position == null:
 		return
 	if collided:
+		$Sprite2D2.visible = false
 		return
+	else:
+		$Sprite2D2.visible = true
 	var dir = (target_position - position)
 	position += dir.normalized() * move_speed * delta
 

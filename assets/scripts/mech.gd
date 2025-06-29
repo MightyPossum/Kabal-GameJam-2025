@@ -64,7 +64,7 @@ func _process(delta: float) -> void:
 
 func _spawn_projectile():
 	if projectile_scene:
-		var projectile_count = GLOBAL.PROJECTILE_AMOUNT.toInt()
+		var projectile_count = GLOBAL.PROJECTILE_AMOUNT.mantissa
 		
 		# Spawn multiple projectiles with small delays
 		for i in range(projectile_count):
@@ -109,6 +109,7 @@ func _input(event: InputEvent) -> void:
 			var mouse_pos = get_global_mouse_position()
 			var mech_rect = Rect2(global_position - Vector2(32, 32), Vector2(64, 64))  # Adjust size as needed
 			if mech_rect.has_point(mouse_pos):
+				GLOBAL.MANUAL_SHOTS.plus(1)
 				_spawn_projectile()
 
 func increase_cannon_damage(amount: Big):
@@ -132,7 +133,8 @@ func _setup_cannon_timer():
 
 func _calculate_cannon_interval() -> float:
 	# CANNON_SHOOT_RATE is the timer interval in seconds
-	var cannon_rate = GLOBAL.CANNON_SHOOT_RATE.toFloat()
+	var cannon_rate = GLOBAL.CANNON_SHOOT_RATE.mantissa * GLOBAL.ATTACK_SPEED.exponent
+	print("Cannon shoot rate: " + str(cannon_rate))
 	
 	# If cannon shoot rate is 0 or very low, set a very long interval (effectively disabled)
 	if cannon_rate <= 0:
