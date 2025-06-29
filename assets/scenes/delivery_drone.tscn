@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bpgbypoyt2jfn"]
+
+[ext_resource type="Texture2D" uid="uid://c1c0rte840ibs" path="res://assets/art/wall_drone.png" id="1_m070p"]
+
+[node name="DeliveryDrone" type="Node2D"]
+
+[node name="WallDrone" type="Sprite2D" parent="."]
+texture = ExtResource("1_m070p")
