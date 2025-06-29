@@ -1,0 +1,76 @@
+[gd_scene load_steps=5 format=3 uid="uid://beoin50lykyyg"]
+
+[ext_resource type="Texture2D" uid="uid://c2dao2lss2v01" path="res://assets/art/civ_ship.png" id="1_rlvhs"]
+[ext_resource type="Texture2D" uid="uid://k37x1824r0xr" path="res://assets/art/civ_ship_transport.png" id="2_e6my2"]
+
+[sub_resource type="Gradient" id="Gradient_rlvhs"]
+offsets = PackedFloat32Array(0, 0.623457, 1)
+colors = PackedColorArray(0.31802, 0.31802, 0.31802, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="Gradient" id="Gradient_p5336"]
+offsets = PackedFloat32Array(0, 0.0679012, 0.938272)
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[node name="CivShip" type="Node2D"]
+
+[node name="main_thruster" type="CPUParticles2D" parent="."]
+position = Vector2(0, 25)
+amount = 150
+lifetime = 0.4
+randomness = 0.3
+lifetime_randomness = 0.7
+emission_shape = 1
+emission_sphere_radius = 3.0
+spread = 0.0
+gravity = Vector2(0, 300)
+color = Color(0, 1, 1, 1)
+color_ramp = SubResource("Gradient_rlvhs")
+
+[node name="side_thruster" type="CPUParticles2D" parent="."]
+position = Vector2(-6, 23)
+amount = 150
+lifetime = 0.4
+randomness = 0.3
+lifetime_randomness = 0.7
+emission_shape = 1
+emission_sphere_radius = 1.0
+spread = 0.0
+gravity = Vector2(0, 150)
+color = Color(0, 1, 1, 1)
+color_ramp = SubResource("Gradient_rlvhs")
+
+[node name="side_thruster2" type="CPUParticles2D" parent="."]
+position = Vector2(6, 23)
+amount = 150
+lifetime = 0.4
+randomness = 0.3
+lifetime_randomness = 0.7
+emission_shape = 1
+emission_sphere_radius = 1.0
+spread = 0.0
+gravity = Vector2(0, 150)
+color = Color(0, 1, 1, 1)
+color_ramp = SubResource("Gradient_rlvhs")
+
+[node name="CivShip" type="Sprite2D" parent="."]
+texture = ExtResource("1_rlvhs")
+
+[node name="orbit_ships" type="CPUParticles2D" parent="."]
+position = Vector2(0, -12)
+rotation = 0.237774
+amount = 6
+texture = ExtResource("2_e6my2")
+lifetime = 15.0
+randomness = 0.5
+emission_shape = 3
+emission_rect_extents = Vector2(1, 1)
+direction = Vector2(-1, 0)
+spread = 100.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 60.0
+angular_velocity_min = 180.0
+angular_velocity_max = 360.0
+orbit_velocity_min = 0.2
+orbit_velocity_max = 1.0
+color_ramp = SubResource("Gradient_p5336")
