@@ -3,6 +3,8 @@ extends Control
 @export var energy_label : Label
 @export var wave_progress : TextureProgressBar 
 @export var wave_label : Label
+@export var EPS_label : Label
+@export var Harvest_label : Label
 
 var previous_wave_number : int = -1
 var current_wave_time : float = 0.0
@@ -33,6 +35,16 @@ func _process(delta: float) -> void:
 		energy_label.text = GLOBAL.ENERGY_STRING
 	else:
 		energy_label.text = "0"
+		
+	if GLOBAL.ENERGY_PER_SECOND:
+		EPS_label.text = "%s Energy Per Second" % [GLOBAL.ENERGY_PER_SECOND.toAA()]
+	else:
+		EPS_label.text = "0 Energy Per Second"
+	
+	if GLOBAL.ENERGY_PER_CELL:
+		Harvest_label.text = "%s Energy Per Cell" % [GLOBAL.ENERGY_PER_CELL.toAA()]
+	else:
+		Harvest_label.text = "0 Energy Per Cell"
 
 	# Check if wave number has changed (new wave started)
 	if GLOBAL.WAVE_NUMBER != previous_wave_number:

@@ -102,7 +102,7 @@ texture_margin_top = 5.0
 texture_margin_right = 5.0
 texture_margin_bottom = 5.0
 
-[node name="Ux" type="Control" node_paths=PackedStringArray("energy_label", "wave_progress", "wave_label")]
+[node name="Ux" type="Control" node_paths=PackedStringArray("energy_label", "wave_progress", "wave_label", "EPS_label", "Harvest_label")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -113,6 +113,8 @@ script = ExtResource("1_jcggf")
 energy_label = NodePath("gameMenu/dataMenu/EnergyData/VBoxContainer/TotalEnergy/energylabel")
 wave_progress = NodePath("gameMenu/dataMenu/TextureProgressBar")
 wave_label = NodePath("gameMenu/dataMenu/TextureProgressBar/Label")
+EPS_label = NodePath("gameMenu/dataMenu/EnergyData/VBoxContainer/EPS")
+Harvest_label = NodePath("gameMenu/dataMenu/EnergyData/VBoxContainer/EPC")
 
 [node name="gameMenu" type="MarginContainer" parent="."]
 layout_mode = 1
