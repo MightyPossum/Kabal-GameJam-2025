@@ -564,6 +564,7 @@ text = "Prestige"
 
 [node name="stats" type="Button" parent="basemenu/VBoxContainer/NinePatchRect/MarginContainer/HBoxContainer"]
 unique_name_in_owner = true
+visible = false
 custom_minimum_size = Vector2(80, 60)
 layout_mode = 2
 size_flags_horizontal = 4
