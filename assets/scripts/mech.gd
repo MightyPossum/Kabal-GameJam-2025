@@ -13,6 +13,8 @@ var cannon_timer: Timer
 var origin_position: Vector2
 var float_direction: Vector2
 var time_passed: float = 0.0
+var float_offset: Vector2 = Vector2.ZERO
+var locked_time_offset: float = 0.0
 
 var auto_cannon_enabled: bool = false  # Flag to control auto cannon firing
 var auto_cannon_initialized: bool = false  # Flag to ensure cannon is initialized only once
@@ -36,19 +38,28 @@ func _ready():
 	_setup_absorption_timer()
 	
 func _process(delta: float) -> void:
-	time_passed += delta
+	# Only increment time when not locked
+	if not GLOBAL.LOCKED:
+		time_passed += delta
+	else:
+		# When locked, store the time offset to maintain smooth transition
+		locked_time_offset += delta
 	
 	# Gentle rotation
 	rotation += rotation_speed * delta
 	
 	# Floating movement with sine wave for smooth motion
-	var float_offset = Vector2(
-		sin(time_passed * 0.8) * float_range * 0.7,
-		cos(time_passed * 0.6) * float_range * 0.5
-	)
-	
-	# Apply the floating motion to the origin position
-	global_position = origin_position + float_offset
+	if not GLOBAL.LOCKED:
+		# When unlocking, adjust time to prevent jerky motion
+		var effective_time = time_passed
+		
+		float_offset = Vector2(
+			sin(effective_time * 0.8) * float_range * 0.7,
+			cos(effective_time * 0.6) * float_range * 0.5
+		)
+		
+		# Apply the floating motion to the origin position
+		global_position = origin_position + float_offset
 	
 	# Update absorption timer interval if it exists and MECH_ABSORPTION has changed
 	if absorption_timer:

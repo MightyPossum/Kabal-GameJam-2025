@@ -72,7 +72,7 @@ var GAME_SCENE : Node = null
 var UX : Control = null
 var MECH : Node2D = null
 
-var ENERGY : Big = Big.new(1,1316561)
+var ENERGY : Big = Big.new(0)
 var ENERGY_STRING : String:
 	get:
 		return ENERGY.toAA()
