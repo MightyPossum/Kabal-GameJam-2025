@@ -9,6 +9,7 @@ extends Node2D
 
 var spawn_timer: Timer
 var absorption_timer: Timer
+var cannon_timer: Timer
 var origin_position: Vector2
 var float_direction: Vector2
 var time_passed: float = 0.0
@@ -30,6 +31,9 @@ func _ready():
 	
 	# Set up absorption timer
 	_setup_absorption_timer()
+	
+	# Set up auto cannon timer
+	_setup_cannon_timer()
 
 func _process(delta: float) -> void:
 	time_passed += delta
@@ -51,6 +55,12 @@ func _process(delta: float) -> void:
 		var new_interval = _calculate_absorption_interval()
 		if abs(absorption_timer.wait_time - new_interval) > 0.1:  # Only update if significant change
 			absorption_timer.wait_time = new_interval
+	
+	# Update cannon timer interval if it exists and CANNON_SHOOT_RATE has changed
+	if cannon_timer:
+		var new_cannon_interval = _calculate_cannon_interval()
+		if abs(cannon_timer.wait_time - new_cannon_interval) > 0.1:  # Only update if significant change
+			cannon_timer.wait_time = new_cannon_interval
 
 func _spawn_projectile():
 	if projectile_scene:
@@ -88,10 +98,29 @@ func _setup_absorption_timer():
 	absorption_timer.autostart = true
 	add_child(absorption_timer)
 
-func update_absorption_rate():
-	# Public function to update the absorption timer interval when MECH_ABSORPTION changes
-	if absorption_timer:
-		absorption_timer.wait_time = _calculate_absorption_interval()
+func _setup_cannon_timer():
+	cannon_timer = Timer.new()
+	cannon_timer.wait_time = _calculate_cannon_interval()
+	cannon_timer.timeout.connect(_on_cannon_timer_timeout)
+	cannon_timer.autostart = true
+	add_child(cannon_timer)
+
+func _calculate_cannon_interval() -> float:
+	# CANNON_SHOOT_RATE is the timer interval in seconds
+	var cannon_rate = GLOBAL.CANNON_SHOOT_RATE.toFloat()
+	
+	# If cannon shoot rate is 0 or very low, set a very long interval (effectively disabled)
+	if cannon_rate <= 0:
+		return 999999.0  # Very long interval when cannon shoot rate is 0
+	
+	return cannon_rate
+
+func _on_cannon_timer_timeout():
+	# Auto-shoot when timer triggers
+	_spawn_projectile()
+	
+	# Update timer interval based on current cannon shoot rate
+	cannon_timer.wait_time = _calculate_cannon_interval()
 
 func _calculate_absorption_interval() -> float:
 	# MECH_ABSORPTION is already the timer interval in seconds
@@ -110,7 +139,7 @@ func _on_absorption_timer_timeout():
 	if energy_nodes.size() > 0:
 		# Randomly select one energy object
 		var random_energy = energy_nodes[randi() % energy_nodes.size()]
-		if GLOBAL.LOCKED:
+		if not GLOBAL.LOCKED:
 			_absorb_energy(random_energy)
 	
 	# Update timer interval based on current absorption value
