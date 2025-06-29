@@ -12,6 +12,7 @@ var mech
 var wall_health_base : Big = Big.new(6)
 var wall_health : Big = wall_health_base
 var wave_number : int = 1
+var timer : float = 0.0
 
 # Directions: (name, offset, vertical, vertical_angle, flipped)
 var directions = [
@@ -36,6 +37,12 @@ func _ready():
 	mech = $Mech
 	mech.position = get_viewport_rect().size / 2
 	await spawn_waves()
+
+func _process(delta: float) -> void:
+	timer += delta
+	if timer >= 1.0:
+		timer = 0.0
+		GLOBAL.ENERGY = GLOBAL.ENERGY + GLOBAL.ENERGY_PER_SECOND
 
 func get_wall_health_for_wave(wave: int) -> Big:
 	# Example idle game scaling: base * (1.15 ^ (wave-1))
