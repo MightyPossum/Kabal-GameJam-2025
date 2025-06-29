@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://4aije4lx727x"
-path="res://.godot/imported/echo_of_the_collapsed_world_2.png-c53cbbe473348bf0ec77834ea7289f3a.ctex"
+uid="uid://bvjr3ch8o1icm"
+path="res://.godot/imported/cover_image.png-0ab72a3b72398df24990474a3df8ff42.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/art/ux/upgrade_icons/echo_of_the_collapsed_world_2.png"
-dest_files=["res://.godot/imported/echo_of_the_collapsed_world_2.png-c53cbbe473348bf0ec77834ea7289f3a.ctex"]
+source_file="res://assets/art/itch/cover_image.png"
+dest_files=["res://.godot/imported/cover_image.png-0ab72a3b72398df24990474a3df8ff42.ctex"]
 
 [params]
 
