@@ -64,6 +64,34 @@ func _process(delta: float) -> void:
 
 func _spawn_projectile():
 	if projectile_scene:
+		var projectile_count = GLOBAL.PROJECTILE_AMOUNT.toInt()
+		
+		# Spawn multiple projectiles with small delays
+		for i in range(projectile_count):
+			# Create a timer for each projectile with increasing delay
+			var delay = i * 0.1  # 0.1 second delay between each shot
+			
+			if delay == 0:
+				# Fire the first projectile immediately
+				_fire_single_projectile()
+			else:
+				# Fire subsequent projectiles with delay
+				var shot_timer = Timer.new()
+				shot_timer.wait_time = delay
+				shot_timer.one_shot = true
+				shot_timer.timeout.connect(_fire_single_projectile)
+				add_child(shot_timer)
+				shot_timer.start()
+				# Clean up the timer after it's done
+				shot_timer.timeout.connect(shot_timer.queue_free)
+		
+		# Play shooting sound once for the volley
+		AudioManager.play_sound(preload("res://assets/audio/laserShoot.wav"), 0.5)
+	else:
+		print("Warning: No projectile scene assigned to mech!")
+
+func _fire_single_projectile():
+	if projectile_scene:
 		var projectile = projectile_scene.instantiate()
 		
 		# Set spawn position (relative to mech position)
@@ -72,9 +100,6 @@ func _spawn_projectile():
 		
 		# Add to the scene tree (add to parent so projectiles persist if mech is destroyed)
 		get_parent().add_child(projectile)
-		AudioManager.play_sound(preload("res://assets/audio/laserShoot.wav"), 0.5)  # Play shooting sound
-	else:
-		print("Warning: No projectile scene assigned to mech!")
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
