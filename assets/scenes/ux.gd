@@ -99,6 +99,7 @@ func purchase_button_pressed() -> void:
 		stat.upgrade_level()
 		print("Purchased stat: %s, new level: %d" % [GLOBAL.STAT_TYPE_NAMES[stat.type], stat.level])
 		print_upgrade_icons() # Refresh the icons after purchase
+		set_upgrade_description(stat)
 	else:
 		print("Not enough energy to purchase stat: %s, cost: %s" % [GLOBAL.STAT_TYPE_NAMES[stat.type], stat.cost.toAA()])
 

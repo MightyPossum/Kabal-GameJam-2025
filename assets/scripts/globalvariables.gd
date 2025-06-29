@@ -236,7 +236,7 @@ func get_current_value(value_dictionary : Dictionary, _stat_name : String) -> Bi
 			addition_value = addition_value.plus(value_dictionary[stat])
 		elif stat.value_application_type == VALUE_APPLICATION_TYPE.MULTIPLICATION:
 			if stat.value_type == VALUE_TYPE.PERCENTAGE:
-				multiplication_value = multiplication_value.plus(Big.new(1).plus(value_dictionary[stat]/100))
+				multiplication_value = multiplication_value.plus(Big.new(1).plus(value_dictionary[stat].divide(100)))
 			else:
 				multiplication_value = multiplication_value.plus(value_dictionary[stat])
 
