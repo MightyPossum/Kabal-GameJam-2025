@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://debg83k4fjtb5"]
 
 [ext_resource type="Script" uid="uid://hg8lhr6gyq2t" path="res://assets/scripts/mech.gd" id="1_tbcuu"]
-[ext_resource type="PackedScene" path="res://assets/scenes/thruster_particles.tscn" id="2_epkyn"]
+[ext_resource type="PackedScene" uid="uid://dowsmtxjlqbk4" path="res://assets/scenes/particles/thruster_particles.tscn" id="2_epkyn"]
 [ext_resource type="PackedScene" uid="uid://ccli6u06lnj5y" path="res://assets/scenes/basic_projectile.tscn" id="2_ga1cp"]
 [ext_resource type="Texture2D" uid="uid://c5mocbq4p6oc5" path="res://assets/art/mechinaboxmech.png" id="2_tbcuu"]
 
