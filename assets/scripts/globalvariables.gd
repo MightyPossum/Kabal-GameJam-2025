@@ -89,6 +89,7 @@ var MANUAL_SHOTS : Big = Big.new(0)
 
 var WAVE_TIME : float = 10.0
 var WAVE_NUMBER : int = 1
+var BREACH_COUNT : int = 0
 
 var ENERGY_PER_SECOND : Big = Big.new(0):
 	get:

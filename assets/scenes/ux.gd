@@ -21,6 +21,8 @@ enum BUTTONTYPE {
 func _ready() -> void:
 
 	GLOBAL.UX = self
+
+	breach_label = %containmentBreachCounter
 	
 	# Initialize the locked state tracking
 	previous_locked_state = GLOBAL.LOCKED
