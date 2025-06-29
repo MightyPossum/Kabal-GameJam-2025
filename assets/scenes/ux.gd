@@ -5,9 +5,11 @@ extends Control
 @export var wave_label : Label
 @export var EPS_label : Label
 @export var Harvest_label : Label
+@export var breach_label : Label
 
 var previous_wave_number : int = -1
 var current_wave_time : float = 0.0
+var previous_locked_state : bool = false
 
 enum BUTTONTYPE {
 	UPGRADE = 0,
@@ -19,6 +21,9 @@ enum BUTTONTYPE {
 func _ready() -> void:
 
 	GLOBAL.UX = self
+	
+	# Initialize the locked state tracking
+	previous_locked_state = GLOBAL.LOCKED
 
 	%upgrades.connect("button_up",menu_button_pressed.bind(BUTTONTYPE.UPGRADE))
 	%prestige.connect("button_up",menu_button_pressed.bind(BUTTONTYPE.PRESTIGE))
@@ -53,9 +58,18 @@ func _process(delta: float) -> void:
 		wave_progress.max_value = GLOBAL.WAVE_TIME
 		wave_progress.value = GLOBAL.WAVE_TIME
 
+	# Check if GLOBAL.LOCKED has changed from true to false (containment breach)
+	if previous_locked_state == true and GLOBAL.LOCKED == false:
+		GLOBAL.BREACH_COUNT += 1
+		print("Containment breached! Total breaches: ", GLOBAL.BREACH_COUNT)
+	
+	# Update previous locked state
+	previous_locked_state = GLOBAL.LOCKED
+
 	current_wave_time -= delta
 	wave_progress.value = current_wave_time
 	wave_label.text = "Next containment box in %d seconds" % current_wave_time
+	breach_label.text = "Containment Breached %d Times" % GLOBAL.BREACH_COUNT
 
 func menu_button_pressed(button_type: int) -> void:
 

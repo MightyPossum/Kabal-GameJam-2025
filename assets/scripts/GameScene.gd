@@ -61,16 +61,36 @@ func spawn_planet_at_random_position():
 		
 		# Get viewport size for random positioning
 		var viewport_size = get_viewport_rect().size
-		
-		# Generate random position with some margin from edges
 		var margin = 35  # Pixels from edge
-		var random_x = randf_range(margin, viewport_size.x - margin)
-		var random_y = randf_range(margin, viewport_size.y - margin)
+		var min_distance_from_mech = 50  # Minimum distance from mech
+		var max_attempts = 50  # Maximum attempts to find a valid position
+		var attempts = 0
+		var valid_position = false
+		var planet_position = Vector2.ZERO
 		
-		new_planet.global_position = Vector2(random_x, random_y)
+		# Keep trying to find a valid position
+		while not valid_position and attempts < max_attempts:
+			attempts += 1
+			
+			# Generate random position with margin from edges
+			var random_x = randf_range(margin, viewport_size.x - margin)
+			var random_y = randf_range(margin, viewport_size.y - margin)
+			planet_position = Vector2(random_x, random_y)
+			
+			# Check distance from mech
+			var distance_to_mech = planet_position.distance_to(mech.global_position)
+			if distance_to_mech >= min_distance_from_mech:
+				valid_position = true
+		
+		# If we couldn't find a valid position after max attempts, use the last generated position
+		if not valid_position:
+			print("Warning: Could not find optimal planet position after ", max_attempts, " attempts. Using last generated position.")
+		
+		new_planet.global_position = planet_position
 		add_child(new_planet)
 		
-		print("Planet spawned at position: ", new_planet.global_position)
+		var distance_to_mech = planet_position.distance_to(mech.global_position)
+		print("Planet spawned at position: ", new_planet.global_position, " (distance from mech: ", distance_to_mech, ")")
 	else:
 		print("Warning: No planet scene assigned!")
 

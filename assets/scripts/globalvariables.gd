@@ -5,7 +5,7 @@ enum STAT_TYPE {
 	ENERGY_COLLECTOR = 2,
 	ENERGY_VAULT = 3,
 	POWER_CELL = 4,
-	TESSERACT_ENERGY_MATRIX = 5,
+	TESSARACT_ENERGY_MATRIX = 5,
 	ECHO_OF_THE_COLLAPSING_CORE = 6,
 	FRAGMENT_OF_THE_FIRST_SPARK = 7,
 	OMNICORE_COLLECTION_ENGINE = 8,
@@ -17,9 +17,11 @@ enum STAT_TYPE {
 	HARVESTER = 14,
 	ENERGY_AUTO_CANNON = 15,
 	PULSE_OVERDRIVE = 16,
-	RIFT_AMPLIFIER = 17,
-	ENERGY_CANNON_BLAST_SPLITTER = 18,
-	VELOCITY_AMPLIFIER = 19,
+	DARKFLOW_OVERDRIVE = 17,
+	VOIDSTORM_OVERDRIVE = 18,
+	RIFT_AMPLIFIER = 19,
+	ENERGY_CANNON_BLAST_SPLITTER = 20,
+	VELOCITY_AMPLIFIER = 21,
 }
 
 enum STAT_TIER {
@@ -38,7 +40,7 @@ enum STAT_TIER {
 
 enum UNLOCK_METRIC {
 	ALWAYS_UNLOCKED = 0,
-	TOTAL_EPS = 1,
+	TOTAL_TPS = 1,
 	TOTAL_CLICKS = 2,
 	TOTAL_LIFETIME_COINS_GATHERED = 3,
 	ENERGY_INCREASE_T1 = 4,
@@ -69,24 +71,25 @@ enum VALUE_APPLICATION_TYPE {
 }
 
 var GAME_SCENE : Node = null
-var UX : Control = null
 var MECH : Node2D = null
 
-var ENERGY : Big = Big.new(8,30)
+var ENERGY : Big = Big.new(0)
 var ENERGY_STRING : String:
 	get:
 		return ENERGY.toAA()
 
 var STATS : Stats
-var LOCKED : bool = false 
+var LOCKED : bool 
 
 var TOTAL_CLICKS : Big = Big.new(0)
-var TOTAL_EPS : Big = Big.new(0)
+var TOTAL_TPS : Big = Big.new(0)
 var TOTAL_LIFETIME_COINS_GATHERED : Big = Big.new(0)
 var MANUAL_SHOTS : Big = Big.new(0)
+var CURRENT_DAMAGE_CANNON : Big = Big.new(1)
 
 var WAVE_TIME : float = 10.0
 var WAVE_NUMBER : int = 1
+var BREACH_COUNT : int = 0
 
 var ENERGY_PER_SECOND : Big = Big.new(0):
 	get:
@@ -144,67 +147,8 @@ var ATTACK_SPEED_DICTIONARY : Dictionary = {
 	VALUE_APPLICATION_TYPE.BASE: Big.new(1),
 }
 
-var CURRENT_DAMAGE_CANNON : Big = Big.new(1):
-	get:
-		return get_current_value(CURRENT_DAMAGE_CANNON_DICTIONARY, "current_damage_cannon")
-
-var CURRENT_DAMAGE_CANNON_DICTIONARY : Dictionary = {
-	VALUE_APPLICATION_TYPE.BASE: Big.new(1),
-}
-
-
-
-# Lookup array for STAT_TYPE names (lowercase)
-var STAT_TYPE_NAMES := [
-	"", # 0 is unused
-	"energy_converter",
-	"energy_collector",
-	"energy_vault",
-	"power_cell",
-	"tesseract_energy_matrix",
-	"echo_of_the_collapsing_core",
-	"fragment_of_the_first_spark",
-	"omnicore_collection_engine",
-	"singularity_intake",
-	"pulse_of_the_universe",
-	"energy_amplifier",
-	"energy_core",
-	"hollow_drive",
-	"harvester",
-	"energy_auto_cannon",
-	"pulse_overdrive",
-	"rift_amplifier",
-	"energy_cannon_blast_splitter",
-	"velocity_amplifier"
-]
-
-# Lookup array for STAT_TIER names (lowercase)
-var STAT_TIER_NAMES := [
-	"", # 0 is unused
-	"core",
-	"surge",
-	"alpha",
-	"wraithsteel",
-	"stellar",
-	"darkrune",
-	"solarite",
-	"darkflow",
-	"voidcurrent",
-	"starcore",
-	"blightsteel"
-]
-
-# Utility function: Capitalize the first letter of each word in a string (init cap)
-func to_init_cap(sentence: String) -> String:
-	var words = sentence.split("_")
-	for i in range(words.size()):
-		if words[i].length() > 0:
-			words[i] = words[i].substr(0, 1).to_upper() + words[i].substr(1).to_lower()
-	return " ".join(words)
-# Example: to_init_cap("echo_of_the_collapsing_core") -> "Echo Of The Collapsing Core"
-
-func get_total_eps() -> Big:
-	return ENERGY_PER_SECOND
+func get_total_tps() -> Big:
+	return TOTAL_TPS
 
 func get_total_clicks() -> Big:
 	return TOTAL_CLICKS
@@ -236,7 +180,7 @@ func get_current_value(value_dictionary : Dictionary, _stat_name : String) -> Bi
 			addition_value = addition_value.plus(value_dictionary[stat])
 		elif stat.value_application_type == VALUE_APPLICATION_TYPE.MULTIPLICATION:
 			if stat.value_type == VALUE_TYPE.PERCENTAGE:
-				multiplication_value = multiplication_value.plus(Big.new(1).plus(value_dictionary[stat].divide(100)))
+				multiplication_value = multiplication_value.plus(Big.new(1).plus(value_dictionary[stat]/100))
 			else:
 				multiplication_value = multiplication_value.plus(value_dictionary[stat])
 
