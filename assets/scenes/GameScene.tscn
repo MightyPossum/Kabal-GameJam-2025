@@ -1,12 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://1uhb1t2k28jg"]
+[gd_scene load_steps=6 format=3 uid="uid://1uhb1t2k28jg"]
 
 [ext_resource type="PackedScene" uid="uid://debg83k4fjtb5" path="res://assets/scenes/mech.tscn" id="1_0tohw"]
 [ext_resource type="Script" uid="uid://btsc7aeuebkgq" path="res://assets/scripts/GameScene.gd" id="1_8oxkv"]
 [ext_resource type="PackedScene" uid="uid://dvniym7b7lppk" path="res://assets/scenes/background.tscn" id="2_uogpv"]
+[ext_resource type="PackedScene" uid="uid://dcqj748ghel6s" path="res://assets/scenes/planet.tscn" id="2_uumv0"]
 [ext_resource type="PackedScene" uid="uid://4w8ro62cr66" path="res://assets/scenes/ux.tscn" id="4_iacku"]
 
 [node name="GameScene" type="Node2D"]
 script = ExtResource("1_8oxkv")
+planet = ExtResource("2_uumv0")
 
 [node name="Background" parent="." instance=ExtResource("2_uogpv")]
 
